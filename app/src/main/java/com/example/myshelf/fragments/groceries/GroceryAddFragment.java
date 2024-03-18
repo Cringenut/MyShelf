@@ -1,4 +1,4 @@
-package com.example.myshelf;
+package com.example.myshelf.fragments.groceries;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

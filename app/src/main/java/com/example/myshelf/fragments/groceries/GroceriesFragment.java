@@ -1,4 +1,4 @@
-package com.example.myshelf;
+package com.example.myshelf.fragments.groceries;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myshelf.R;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
 
 public class GroceriesFragment extends Fragment {

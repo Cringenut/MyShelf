@@ -1,4 +1,4 @@
-package com.example.myshelf;
+package com.example.myshelf.activities;
 
 import android.os.Bundle;
 
