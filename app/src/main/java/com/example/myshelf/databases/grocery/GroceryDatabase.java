@@ -19,7 +19,7 @@ public abstract class GroceryDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static GroceryDatabase getDatabase(final Context context) {
+    public static GroceryDatabase getDatabase(final Context context) {
         if (groceryDatabase == null) {
             synchronized (GroceryDatabase.class) {
                 if (groceryDatabase == null) {
