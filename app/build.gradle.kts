@@ -43,10 +43,15 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.room.common)
     implementation(libs.room.runtime)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.lombok)
     annotationProcessor(libs.lombok)
     annotationProcessor(libs.room.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.core.ktx)
+    androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit.ktx)
 }

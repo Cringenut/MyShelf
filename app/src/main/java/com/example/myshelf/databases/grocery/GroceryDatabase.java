@@ -11,7 +11,7 @@ import com.example.myshelf.objects.Grocery;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Grocery.class}, version = 0, exportSchema = false)
+@Database(entities = {Grocery.class}, version = 1, exportSchema = false)
 public abstract class GroceryDatabase extends RoomDatabase {
     public abstract GroceryDAO groceryDAO();
     private static volatile GroceryDatabase groceryDatabase;

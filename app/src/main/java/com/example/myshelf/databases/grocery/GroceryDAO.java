@@ -1,6 +1,7 @@
 package com.example.myshelf.databases.grocery;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -17,6 +18,9 @@ public interface GroceryDAO {
     void insert(Grocery grocery);
     @Update
     void update(Grocery grocery);
+
+    @Delete
+    void delete(Grocery grocery);
     @Query("SELECT * FROM grocery")
     List<Grocery> getAll();
 
