@@ -1,4 +1,4 @@
-package com.example.myshelf.fragments.groceries;
+package com.example.myshelf.fragments.grocery;
 
 import android.os.Bundle;
 

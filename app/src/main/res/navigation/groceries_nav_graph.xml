@@ -6,7 +6,7 @@
     app:startDestination="@id/groceriesFragment">
     <fragment
         android:id="@+id/groceriesFragment"
-        android:name="com.example.myshelf.fragments.groceries.GroceriesFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceriesFragment"
         android:label="fragment_groceries"
         tools:layout="@layout/fragment_groceries" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/groceryAddFragment"
-        android:name="com.example.myshelf.fragments.groceries.GroceryAddFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceryAddFragment"
         android:label="fragment_grocery_add"
         tools:layout="@layout/fragment_grocery_add" >
         <action
