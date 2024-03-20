@@ -28,6 +28,7 @@ espresso-core-v340 = { module = "androidx.test.espresso:espresso-core", version.
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junitVersion" }
 junit-ktx-v113 = { module = "androidx.test.ext:junit-ktx", version.ref = "junitKtx" }

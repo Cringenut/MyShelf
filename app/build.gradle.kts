@@ -53,5 +53,6 @@ dependencies {
     testImplementation(libs.core.ktx)
     androidTestImplementation(libs.runner)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.contrib)
     androidTestImplementation(libs.junit.ktx)
 }

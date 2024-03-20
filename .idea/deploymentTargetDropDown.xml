@@ -8,6 +8,18 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="deleteGrocery() (1)">
+        <State />
+      </entry>
+      <entry key="insertAndRetrieveGroceries()">
+        <State />
+      </entry>
+      <entry key="testRecyclerViewItemCount()">
+        <State />
+      </entry>
+      <entry key="writeAndReadGrocery() (1)">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
