@@ -2,13 +2,12 @@ package com.example.myshelf.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myshelf.R;
+import com.example.myshelf.databinding.ViewRecyclerViewGroceryBinding;
 import com.example.myshelf.objects.Grocery;
 
 import java.util.ArrayList;
@@ -26,15 +25,16 @@ public class GroceriesRecyclerViewAdapter
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View groceryView = inflater.inflate(R.layout.view_recycler_view_grocery, parent, false);
+        ViewRecyclerViewGroceryBinding binding = ViewRecyclerViewGroceryBinding
+                        .inflate(LayoutInflater
+                        .from(parent.getContext()), parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(groceryView);
-        return viewHolder;
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.binding.textGroceryName.setText(groceriesList.get(position).groceryName);
     }
 
     @Override
@@ -48,8 +48,10 @@ public class GroceriesRecyclerViewAdapter
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        ViewRecyclerViewGroceryBinding binding;
+        public ViewHolder(ViewRecyclerViewGroceryBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
