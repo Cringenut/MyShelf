@@ -1,4 +1,4 @@
-package com.example.myshelf.viewmodels.grocery;
+package com.example.myshelf.viewmodels.groceries;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

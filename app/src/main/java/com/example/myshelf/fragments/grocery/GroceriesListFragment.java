@@ -17,7 +17,7 @@ import com.example.myshelf.R;
 import com.example.myshelf.adapters.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
 
-public class GroceriesFragment extends Fragment {
+public class GroceriesListFragment extends Fragment {
 
 
     private FragmentGroceriesBinding binding;
@@ -33,7 +33,7 @@ public class GroceriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = NavHostFragment.findNavController(GroceriesFragment.this);
+        navController = NavHostFragment.findNavController(GroceriesListFragment.this);
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
