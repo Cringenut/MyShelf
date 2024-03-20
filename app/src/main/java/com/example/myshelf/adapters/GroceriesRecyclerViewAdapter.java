@@ -16,11 +16,7 @@ import java.util.List;
 public class GroceriesRecyclerViewAdapter
         extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
 
-    private List<Grocery> groceryList;
-
-    public GroceriesRecyclerViewAdapter(List<Grocery> groceryList) {
-        this.groceryList = groceryList;
-    }
+    private List<Grocery> groceriesList;
 
     @NonNull
     @Override
@@ -42,8 +38,12 @@ public class GroceriesRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return 3;
-        //return groceryList.size();
+        return groceriesList.size();
+    }
+
+    public void setGroceries(List<Grocery> groceries) {
+        this.groceriesList = groceries;
+        notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

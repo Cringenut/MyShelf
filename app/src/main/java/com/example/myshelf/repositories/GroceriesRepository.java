@@ -1,6 +1,7 @@
 package com.example.myshelf.repositories;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,12 +16,12 @@ public class GroceriesRepository {
 
     GroceryDatabase groceryDatabase;
     GroceryDAO groceryDAO;
-    private MutableLiveData<List<Grocery>> groceriesList;
+    private MutableLiveData<List<Grocery>> groceriesList = new MutableLiveData<>();
 
-    public GroceriesRepository(Application application) {
-        this.groceryDatabase = GroceryDatabase.getDatabase(application);;
-        this.groceryDAO = groceryDatabase.groceryDAO();
-        this.groceriesList.setValue(groceryDAO.getAll());
+    public GroceriesRepository(Context context) {
+        GroceryDatabase db = GroceryDatabase.getDatabase(context.getApplicationContext());
+        this.groceryDAO = db.groceryDAO();
+        this.groceriesList.postValue(groceryDAO.getAll());
     }
 
     public LiveData<List<Grocery>> getGroceries() {
