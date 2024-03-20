@@ -7,12 +7,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myshelf.R;
+import com.example.myshelf.adapters.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
 
 public class GroceriesFragment extends Fragment {
@@ -38,5 +40,9 @@ public class GroceriesFragment extends Fragment {
                 navController.navigate(R.id.action_groceriesFragment_to_groceryAddFragment);
             }
         });
+
+        binding.groceriesRecyclerView.setAdapter(new GroceriesRecyclerViewAdapter(null));
+        binding.groceriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 }

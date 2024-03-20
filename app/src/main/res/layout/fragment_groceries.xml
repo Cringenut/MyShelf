@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.grocery.GroceriesFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groceriesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
