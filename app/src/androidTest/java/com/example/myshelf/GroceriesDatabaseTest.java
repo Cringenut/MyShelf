@@ -1,5 +1,6 @@
 package com.example.myshelf;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import android.content.Context;
@@ -17,7 +18,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class GroceryDatabaseTest {
+public class GroceriesDatabaseTest {
 
     private GroceryDatabase db;
     private GroceryDAO groceryDAO;
@@ -39,7 +40,7 @@ public class GroceryDatabaseTest {
         Grocery grocery = new Grocery("Grocery");
         groceryDAO.insert(grocery);
 
-        List<Grocery> allGroceries = groceryDAO.getAll();
+        List<Grocery> allGroceries = groceryDAO.getAll().getValue();
         System.out.println(allGroceries);
     }
 
@@ -48,7 +49,7 @@ public class GroceryDatabaseTest {
         Grocery grocery = new Grocery("Grocery");
 
         groceryDAO.insert(grocery);
-        System.out.println("Database grocery inserted: " + groceryDAO.getAll().get(0));
+        System.out.println("Database grocery inserted: " + groceryDAO.getAll().getValue().get(0));
 
         groceryDAO.delete(grocery);
         Grocery byId = groceryDAO.getById(grocery.getGroceryId());
@@ -59,6 +60,20 @@ public class GroceryDatabaseTest {
         }
 
         assertNull(byId);
+    }
+
+    @Test
+    public void insertAndRetrieveGroceries() throws Exception {
+        Grocery apple = new Grocery("Apples");
+        Grocery bread = new Grocery("Bread");
+        Grocery milk = new Grocery("Milk");
+
+        groceryDAO.insert(apple);
+        groceryDAO.insert(bread);
+        groceryDAO.insert(milk);
+
+        List<Grocery> allGroceries = groceryDAO.getAll().getValue();
+        assertEquals(allGroceries.size(), 3);
     }
 
 }

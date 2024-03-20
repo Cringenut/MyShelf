@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myshelf.R;
 import com.example.myshelf.objects.Grocery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroceriesRecyclerViewAdapter
         extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
 
-    private List<Grocery> groceriesList;
+    private List<Grocery> groceriesList = new ArrayList<>();
 
     @NonNull
     @Override

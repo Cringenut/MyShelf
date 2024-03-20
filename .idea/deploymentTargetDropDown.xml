@@ -2,16 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="GroceryDatabaseTest">
+      <entry key="GroceriesListUITest">
         <State />
       </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="deleteGrocery()">
-        <State />
-      </entry>
-      <entry key="writeAndReadGrocery()">
         <State />
       </entry>
     </value>

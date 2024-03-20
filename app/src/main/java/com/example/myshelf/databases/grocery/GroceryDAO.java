@@ -1,5 +1,6 @@
 package com.example.myshelf.databases.grocery;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,7 +23,7 @@ public interface GroceryDAO {
     @Delete
     void delete(Grocery grocery);
     @Query("SELECT * FROM grocery")
-    List<Grocery> getAll();
+    LiveData<List<Grocery>> getAll();
 
     @Query("SELECT * FROM grocery WHERE groceryId = :id")
     Grocery getById(int id);
