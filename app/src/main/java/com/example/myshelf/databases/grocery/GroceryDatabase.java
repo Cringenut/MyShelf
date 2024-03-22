@@ -16,7 +16,7 @@ public abstract class GroceryDatabase extends RoomDatabase {
     public abstract GroceryDAO groceryDAO();
     private static volatile GroceryDatabase groceryDatabase;
     private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
+    public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static GroceryDatabase getDatabase(final Context context) {

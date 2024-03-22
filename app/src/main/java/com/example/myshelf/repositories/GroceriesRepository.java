@@ -1,10 +1,8 @@
 package com.example.myshelf.repositories;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.myshelf.databases.grocery.GroceryDAO;
 import com.example.myshelf.databases.grocery.GroceryDatabase;
@@ -25,7 +23,9 @@ public class GroceriesRepository {
     }
 
     public void addGrocery(Grocery grocery) {
-        groceryDAO.insert(grocery);
+        GroceryDatabase.databaseWriteExecutor.execute(() -> {
+            groceryDAO.insert(grocery);
+        });
     }
 
 }
