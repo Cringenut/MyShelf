@@ -18,10 +18,9 @@ import com.example.myshelf.R;
 import com.example.myshelf.adapters.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
-import com.example.myshelf.viewmodels.groceries.GroceriesListViewModelFactory;
+import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 
 public class GroceriesListFragment extends Fragment {
-
 
     private FragmentGroceriesBinding binding;
     private NavController navController;
@@ -44,7 +43,7 @@ public class GroceriesListFragment extends Fragment {
             }
         });
 
-        GroceriesListViewModelFactory factory = new GroceriesListViewModelFactory(getContext());
+        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
         viewModel = new ViewModelProvider(this, factory).get(GroceriesListViewModel.class);
 
         GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter();

@@ -24,4 +24,8 @@ public class GroceriesRepository {
         return groceryDAO.getAll();
     }
 
+    public void addGrocery(Grocery grocery) {
+        groceryDAO.insert(grocery);
+    }
+
 }

@@ -1,18 +1,18 @@
 package com.example.myshelf.viewmodels.groceries;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.repositories.GroceriesRepository;
 
-public class GroceriesListViewModelFactory implements ViewModelProvider.Factory {
+public class GroceriesRepositoryViewModelFactory implements ViewModelProvider.Factory {
     private final GroceriesRepository groceriesRepository;
 
-    public GroceriesListViewModelFactory(Context context) {
+    public GroceriesRepositoryViewModelFactory(Context context) {
         groceriesRepository = new GroceriesRepository(context);
     }
 
@@ -20,8 +20,9 @@ public class GroceriesListViewModelFactory implements ViewModelProvider.Factory 
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(GroceriesListViewModel.class)) {
-            //noinspection unchecked
             return (T) new GroceriesListViewModel(groceriesRepository);
+        } else if (modelClass.isAssignableFrom(GroceryAddViewModel.class)) {
+            return (T) new GroceryAddViewModel(groceriesRepository, new Grocery("Grocery"));
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
