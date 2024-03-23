@@ -8,16 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myshelf.databinding.ViewRecyclerViewGroceryBinding;
-import com.example.myshelf.objects.Grocery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroceriesRecyclerViewAdapter
-        extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
+public class GroceryChangeNameRecyclerViewAdapter
+        extends RecyclerView.Adapter<GroceryChangeNameRecyclerViewAdapter.ViewHolder> {
 
-    private List<Grocery> groceriesList = new ArrayList<>();
-
+    private List<String> groceryNamesList = new ArrayList<>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,24 +24,24 @@ public class GroceriesRecyclerViewAdapter
 
         // Inflate the custom layout
         ViewRecyclerViewGroceryBinding binding = ViewRecyclerViewGroceryBinding
-                        .inflate(LayoutInflater
+                .inflate(LayoutInflater
                         .from(parent.getContext()), parent, false);
 
-        return new ViewHolder(binding);
+        return new GroceryChangeNameRecyclerViewAdapter.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.textGroceryName.setText(groceriesList.get(position).getGroceryName());
+
     }
 
     @Override
     public int getItemCount() {
-        return groceriesList.size();
+        return groceryNamesList.size();
     }
 
-    public void setGroceries(List<Grocery> groceries) {
-        this.groceriesList = groceries;
+    public void setGroceries(List<String> groceryNames) {
+        this.groceryNamesList = groceryNames;
         notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
 

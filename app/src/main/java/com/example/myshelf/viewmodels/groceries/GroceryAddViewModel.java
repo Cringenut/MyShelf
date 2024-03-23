@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.repositories.GroceriesRepository;
 
+import lombok.Getter;
+
 public class GroceryAddViewModel extends ViewModel {
 
     private final GroceriesRepository groceriesRepo;
+    @Getter
     private final Grocery groceryToAdd;
 
     public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {

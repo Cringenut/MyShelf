@@ -21,5 +21,17 @@
         <action
             android:id="@+id/action_groceryAddFragment_back_to_groceriesFragment"
             app:destination="@id/groceriesFragment" />
+        <action
+            android:id="@+id/action_groceryAddFragment_to_groceryChangeNameFragment"
+            app:destination="@id/groceryChangeNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groceryChangeNameFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceryChangeNameFragment"
+        android:label="fragment_grocery_change_name"
+        tools:layout="@layout/fragment_grocery_change_name" >
+        <action
+            android:id="@+id/action_groceryChangeNameFragment_to_groceryAddFragment"
+            app:destination="@id/groceryAddFragment" />
     </fragment>
 </navigation>

@@ -1,20 +1,19 @@
 package com.example.myshelf.fragments.grocery;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.myshelf.R;
-import com.example.myshelf.databinding.FragmentGroceriesBinding;
 import com.example.myshelf.databinding.FragmentGroceryAddBinding;
-import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 
@@ -43,6 +42,13 @@ public class GroceryAddFragment extends Fragment {
             public void onClick(View v) {
                 viewModel.addGrocery();
                 navController.navigate(R.id.action_groceryAddFragment_back_to_groceriesFragment);
+            }
+        });
+        binding.btnChangeNameGrocery.setText(viewModel.getGroceryToAdd().getGroceryName());
+        binding.btnChangeNameGrocery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
             }
         });
 

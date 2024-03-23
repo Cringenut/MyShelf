@@ -26,6 +26,6 @@ public class Grocery {
 
     @NonNull
     @ColumnInfo(name="grocery_name")
-    public String groceryName;
+    private String groceryName;
 
 }
