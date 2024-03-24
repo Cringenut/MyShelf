@@ -18,6 +18,10 @@ public class GroceryAddViewModel extends ViewModel {
         this.groceryToAdd = groceryToAdd;
     }
 
+    public void setGroceryName(String name) {
+        groceryToAdd.setGroceryName(name);
+    }
+
     public void addGrocery() {
         groceriesRepo.addGrocery(groceryToAdd);
     }

@@ -40,7 +40,7 @@ public class GroceryChangeNameRecyclerViewAdapter
         return groceryNamesList.size();
     }
 
-    public void setGroceries(List<String> groceryNames) {
+    public void setGroceryNames(List<String> groceryNames) {
         this.groceryNamesList = groceryNames;
         notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
