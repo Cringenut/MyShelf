@@ -11,7 +11,6 @@ import com.example.myshelf.repositories.GroceriesRepository;
 
 public class GroceriesRepositoryViewModelFactory implements ViewModelProvider.Factory {
     private final GroceriesRepository groceriesRepository;
-
     public GroceriesRepositoryViewModelFactory(Context context) {
         groceriesRepository = new GroceriesRepository(context);
     }

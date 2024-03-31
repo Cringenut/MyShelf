@@ -32,10 +32,17 @@ public class GroceryAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navController = NavHostFragment.findNavController(GroceryAddFragment.this);
+
+
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
-        viewModel = new ViewModelProvider(this, factory).get(GroceryAddViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
+
+        viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName -> {
+            binding.btnChangeNameGrocery.setText(newName);
+        });
+
+        System.out.println("View");
 
         binding.btnAddGrocery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +58,13 @@ public class GroceryAddFragment extends Fragment {
                 navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
             }
         });
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String currentName = viewModel.getGroceryToAdd().getGroceryName();
+        binding.btnChangeNameGrocery.setText(currentName);
+    }
 
 }

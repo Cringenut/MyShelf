@@ -9,13 +9,16 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myshelf.databinding.FragmentGroceryChangeNameBinding;
+import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 
 
 public class GroceryChangeNameFragment extends Fragment {
 
     private FragmentGroceryChangeNameBinding binding;
+    private GroceryAddViewModel viewModel;
     private EditText textInputGroceryName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,12 +30,11 @@ public class GroceryChangeNameFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textInputGroceryName = binding.textInputGroceryName;
-
-        // Assuming there's a button in your layout to confirm the name change
+        viewModel = new ViewModelProvider(requireActivity()).get(GroceryAddViewModel.class);
         binding.btnConfirm.setOnClickListener(v -> {
-            String newName = textInputGroceryName.getText().toString();
-            // Use a method to pass this newName back to GroceryAddFragment. See Step 3 for options.
+            String newName = "Toast";
+            viewModel.setGroceryName(newName);
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
     }
 

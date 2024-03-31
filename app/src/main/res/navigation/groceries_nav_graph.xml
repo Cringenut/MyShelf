@@ -29,9 +29,5 @@
         android:id="@+id/groceryChangeNameFragment"
         android:name="com.example.myshelf.fragments.grocery.GroceryChangeNameFragment"
         android:label="fragment_grocery_change_name"
-        tools:layout="@layout/fragment_grocery_change_name" >
-        <action
-            android:id="@+id/action_groceryChangeNameFragment_to_groceryAddFragment"
-            app:destination="@id/groceryAddFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_grocery_change_name" />
 </navigation>
