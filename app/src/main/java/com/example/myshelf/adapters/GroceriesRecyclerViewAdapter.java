@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.ViewGroceryBinding;
 import com.example.myshelf.objects.Grocery;
 
@@ -35,9 +36,12 @@ public class GroceriesRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.textGroceryName.setText(groceriesList.get(position).getGroceryName());
-        if (groceriesList.get(position).getGroceryExpirationDate() == null) {
+        Grocery grocery = groceriesList.get(position);
+        holder.binding.textGroceryName.setText(grocery.getGroceryName());
+        if (grocery.getGroceryExpirationDate() == null) {
             holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
+        } else {
+            holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
         }
     }
 
