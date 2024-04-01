@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class DateConverter {
 
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     @TypeConverter
     public static Date fromString(String value) {

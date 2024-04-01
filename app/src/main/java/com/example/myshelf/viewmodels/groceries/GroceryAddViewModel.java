@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.repositories.GroceriesRepository;
 
+import java.util.Date;
+
 import lombok.Getter;
 
 public class GroceryAddViewModel extends ViewModel {
@@ -15,11 +17,13 @@ public class GroceryAddViewModel extends ViewModel {
     @Getter
     private final Grocery groceryToAdd;
     private MutableLiveData<String> groceryName = new MutableLiveData<>();
+    private MutableLiveData<Date> groceryExpirationDate = new MutableLiveData<>();
 
     public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {
         this.groceriesRepo = groceriesRepo;
         this.groceryToAdd = groceryToAdd;
         this.groceryName.setValue(groceryToAdd.getGroceryName());
+        this.groceryExpirationDate.setValue(groceryToAdd.getGroceryExpirationDate());
     }
 
     public LiveData<String> getGroceryName() {

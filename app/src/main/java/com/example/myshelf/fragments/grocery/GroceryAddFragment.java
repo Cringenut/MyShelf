@@ -17,6 +17,9 @@ import com.example.myshelf.databinding.FragmentGroceryAddBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class GroceryAddFragment extends Fragment {
 
     private FragmentGroceryAddBinding binding;
@@ -56,6 +59,16 @@ public class GroceryAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
+            }
+        });
+
+
+        binding.btnChangeExpirationDate.setText(viewModel.getGroceryToAdd().getGroceryExpirationDate().toString());
+        binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.getGroceryToAdd().setGroceryExpirationDate(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).get2DigitYearStart());
+                binding.btnChangeExpirationDate.setText(viewModel.getGroceryToAdd().getGroceryExpirationDate().toString());
             }
         });
     }
