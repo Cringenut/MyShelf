@@ -5,13 +5,15 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.example.myshelf.objects.Grocery;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Grocery.class}, version = 2, exportSchema = false)
+@Database(entities = {Grocery.class}, version = 1, exportSchema = false)
+@TypeConverters(DateConverter.class)
 public abstract class GroceryDatabase extends RoomDatabase {
     public abstract GroceryDAO groceryDAO();
     private static volatile GroceryDatabase groceryDatabase;
@@ -24,7 +26,7 @@ public abstract class GroceryDatabase extends RoomDatabase {
             synchronized (GroceryDatabase.class) {
                 if (groceryDatabase == null) {
                     groceryDatabase = Room.databaseBuilder(context.getApplicationContext(),
-                                    GroceryDatabase.class, "grocery_database")
+                                    GroceryDatabase.class, "groceries_database")
                             .build();
                 }
             }

@@ -39,7 +39,7 @@ public class GroceryAddFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
 
         viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName -> {
-            binding.btnChangeNameGrocery.setText(newName);
+            binding.btnChangeName.setText(newName);
         });
 
         System.out.println("View");
@@ -51,8 +51,8 @@ public class GroceryAddFragment extends Fragment {
                 navController.navigate(R.id.action_groceryAddFragment_back_to_groceriesFragment);
             }
         });
-        binding.btnChangeNameGrocery.setText(viewModel.getGroceryToAdd().getGroceryName());
-        binding.btnChangeNameGrocery.setOnClickListener(new View.OnClickListener() {
+        binding.btnChangeName.setText(viewModel.getGroceryToAdd().getGroceryName());
+        binding.btnChangeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
@@ -64,7 +64,7 @@ public class GroceryAddFragment extends Fragment {
     public void onResume() {
         super.onResume();
         String currentName = viewModel.getGroceryToAdd().getGroceryName();
-        binding.btnChangeNameGrocery.setText(currentName);
+        binding.btnChangeName.setText(currentName);
     }
 
 }

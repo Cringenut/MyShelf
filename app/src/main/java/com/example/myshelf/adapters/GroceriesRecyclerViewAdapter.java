@@ -2,12 +2,13 @@ package com.example.myshelf.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myshelf.databinding.ViewRecyclerViewGroceryBinding;
+import com.example.myshelf.databinding.ViewGroceryBinding;
 import com.example.myshelf.objects.Grocery;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class GroceriesRecyclerViewAdapter
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        ViewRecyclerViewGroceryBinding binding = ViewRecyclerViewGroceryBinding
+        ViewGroceryBinding binding = ViewGroceryBinding
                         .inflate(LayoutInflater
                         .from(parent.getContext()), parent, false);
 
@@ -35,6 +36,9 @@ public class GroceriesRecyclerViewAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.binding.textGroceryName.setText(groceriesList.get(position).getGroceryName());
+        if (groceriesList.get(position).getGroceryExpirationDate() == null) {
+            holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -48,8 +52,8 @@ public class GroceriesRecyclerViewAdapter
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
-        ViewRecyclerViewGroceryBinding binding;
-        public ViewHolder(ViewRecyclerViewGroceryBinding binding) {
+        ViewGroceryBinding binding;
+        public ViewHolder(ViewGroceryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

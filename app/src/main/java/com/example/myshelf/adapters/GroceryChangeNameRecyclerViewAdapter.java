@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myshelf.databinding.ViewRecyclerViewGroceryBinding;
+import com.example.myshelf.databinding.ViewGroceryBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class GroceryChangeNameRecyclerViewAdapter
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        ViewRecyclerViewGroceryBinding binding = ViewRecyclerViewGroceryBinding
+        ViewGroceryBinding binding = ViewGroceryBinding
                 .inflate(LayoutInflater
                         .from(parent.getContext()), parent, false);
 
@@ -46,8 +46,8 @@ public class GroceryChangeNameRecyclerViewAdapter
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
-        ViewRecyclerViewGroceryBinding binding;
-        public ViewHolder(ViewRecyclerViewGroceryBinding binding) {
+        ViewGroceryBinding binding;
+        public ViewHolder(ViewGroceryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
