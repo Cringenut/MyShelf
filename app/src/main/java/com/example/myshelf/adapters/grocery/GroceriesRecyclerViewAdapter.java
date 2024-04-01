@@ -34,10 +34,12 @@ public class GroceriesRecyclerViewAdapter
         return new ViewHolder(binding);
     }
 
+    // Creating RecyclerView element
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Grocery grocery = groceriesList.get(position);
         holder.binding.textGroceryName.setText(grocery.getGroceryName());
+        // If no expiration date is set hide the text
         if (grocery.getGroceryExpirationDate() == null) {
             holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
         } else {
@@ -56,6 +58,7 @@ public class GroceriesRecyclerViewAdapter
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
+        // Set binding
         ViewGroceryBinding binding;
         public ViewHolder(ViewGroceryBinding binding) {
             super(binding.getRoot());

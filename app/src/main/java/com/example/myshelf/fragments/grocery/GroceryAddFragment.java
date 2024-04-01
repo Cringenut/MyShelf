@@ -44,7 +44,7 @@ public class GroceryAddFragment extends Fragment {
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
         viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
 
-        // Setting up the text for buttons
+        // Setting the text for buttons
         binding.btnChangeName.setText(viewModel.getGroceryToAdd().getGroceryName());
         binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
 

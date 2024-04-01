@@ -20,7 +20,7 @@ public class GroceryAddViewModel extends ViewModel {
     @Getter
     private MutableLiveData<Date> groceryExpirationDate = new MutableLiveData<>();
 
-    // Setting up default values
+    // Setting default values
     public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {
         this.groceriesRepo = groceriesRepo;
         this.groceryToAdd = groceryToAdd;
