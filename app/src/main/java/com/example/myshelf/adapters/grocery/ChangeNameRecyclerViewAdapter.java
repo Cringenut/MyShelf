@@ -1,25 +1,21 @@
-package com.example.myshelf.adapters;
+package com.example.myshelf.adapters.grocery;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.ViewGroceryBinding;
-import com.example.myshelf.objects.Grocery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroceriesRecyclerViewAdapter
-        extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
+public class ChangeNameRecyclerViewAdapter
+        extends RecyclerView.Adapter<ChangeNameRecyclerViewAdapter.ViewHolder> {
 
-    private List<Grocery> groceriesList = new ArrayList<>();
-
+    private List<String> groceryNamesList = new ArrayList<>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,30 +24,24 @@ public class GroceriesRecyclerViewAdapter
 
         // Inflate the custom layout
         ViewGroceryBinding binding = ViewGroceryBinding
-                        .inflate(LayoutInflater
+                .inflate(LayoutInflater
                         .from(parent.getContext()), parent, false);
 
-        return new ViewHolder(binding);
+        return new ChangeNameRecyclerViewAdapter.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Grocery grocery = groceriesList.get(position);
-        holder.binding.textGroceryName.setText(grocery.getGroceryName());
-        if (grocery.getGroceryExpirationDate() == null) {
-            holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
-        } else {
-            holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
-        }
+
     }
 
     @Override
     public int getItemCount() {
-        return groceriesList.size();
+        return groceryNamesList.size();
     }
 
-    public void setGroceries(List<Grocery> groceries) {
-        this.groceriesList = groceries;
+    public void setGroceryNames(List<String> groceryNames) {
+        this.groceryNamesList = groceryNames;
         notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
 

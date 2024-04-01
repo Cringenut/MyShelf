@@ -11,10 +11,12 @@ import com.example.myshelf.repositories.GroceriesRepository;
 
 public class GroceriesRepositoryViewModelFactory implements ViewModelProvider.Factory {
     private final GroceriesRepository groceriesRepository;
+    // Encapsulating Repository creation
     public GroceriesRepositoryViewModelFactory(Context context) {
         groceriesRepository = new GroceriesRepository(context);
     }
 
+    // Pass arguments to ViewModel
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

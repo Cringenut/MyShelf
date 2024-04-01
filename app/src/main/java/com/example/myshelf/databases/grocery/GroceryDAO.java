@@ -15,11 +15,11 @@ import java.util.List;
 @Dao
 public interface GroceryDAO {
 
+    // Methods to interact with database
     @Insert(onConflict = OnConflictStrategy.ABORT)
     void insert(Grocery grocery);
     @Update
     void update(Grocery grocery);
-
     @Delete
     void delete(Grocery grocery);
     @Query("SELECT * FROM grocery")

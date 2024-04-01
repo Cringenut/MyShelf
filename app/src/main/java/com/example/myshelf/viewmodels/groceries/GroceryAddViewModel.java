@@ -1,6 +1,5 @@
 package com.example.myshelf.viewmodels.groceries;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -16,9 +15,12 @@ public class GroceryAddViewModel extends ViewModel {
     private final GroceriesRepository groceriesRepo;
     @Getter
     private final Grocery groceryToAdd;
+    @Getter
     private MutableLiveData<String> groceryName = new MutableLiveData<>();
+    @Getter
     private MutableLiveData<Date> groceryExpirationDate = new MutableLiveData<>();
 
+    // Setting up default values
     public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {
         this.groceriesRepo = groceriesRepo;
         this.groceryToAdd = groceryToAdd;
@@ -26,14 +28,12 @@ public class GroceryAddViewModel extends ViewModel {
         this.groceryExpirationDate.setValue(groceryToAdd.getGroceryExpirationDate());
     }
 
-    public LiveData<String> getGroceryName() {
-        return groceryName;
-    }
-
+    // Setters
     public void setGroceryName(String name) {
         groceryToAdd.setGroceryName(name);
         groceryName.setValue(name);
     }
+
 
     public void addGrocery() {
         groceriesRepo.addGrocery(groceryToAdd);

@@ -12,6 +12,7 @@ import com.example.myshelf.objects.Grocery;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+// Just works
 @Database(entities = {Grocery.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class GroceryDatabase extends RoomDatabase {

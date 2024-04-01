@@ -10,6 +10,8 @@ import java.util.List;
 
 import lombok.Getter;
 
+// For now no manipulations with Grocery inside
+// Later Grocery removal and editing would be implemented
 public class GroceriesListViewModel extends ViewModel {
     private final GroceriesRepository groceriesRepo;
     @Getter

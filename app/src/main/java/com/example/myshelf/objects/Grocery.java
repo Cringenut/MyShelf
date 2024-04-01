@@ -23,12 +23,15 @@ public class Grocery {
         this.groceryName = groceryName;
     }
 
+    // Id
     @PrimaryKey(autoGenerate = true)
     private int groceryId;
 
+    // Name
     @NonNull
     @ColumnInfo(name="grocery_name")
     private String groceryName;
+    // Expiration date
 
     @ColumnInfo(name="grocery_expiration_date")
     private Date groceryExpirationDate;

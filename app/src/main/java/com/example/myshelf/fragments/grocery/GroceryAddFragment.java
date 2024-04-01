@@ -36,42 +36,35 @@ public class GroceryAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Navigation
         navController = NavHostFragment.findNavController(GroceryAddFragment.this);
+        navigation();
 
-
+        // Using factory to pass repository and new Grocery as parameter to ViewModel
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
         viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
 
+        // Setting up the text for buttons
+        binding.btnChangeName.setText(viewModel.getGroceryToAdd().getGroceryName());
+        binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
+
+        // Data observers
         viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName -> {
             binding.btnChangeName.setText(newName);
         });
+        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(), newExpirationDate -> {
+            binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate));
+        });
 
-        System.out.println("View");
-
+        // Return to previous fragment and add Grocery to database
         binding.btnAddGrocery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.addGrocery();
-                navController.navigate(R.id.action_groceryAddFragment_back_to_groceriesFragment);
-            }
-        });
-        binding.btnChangeName.setText(viewModel.getGroceryToAdd().getGroceryName());
-        binding.btnChangeName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
 
-
-        binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
-        binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.getGroceryToAdd().setGroceryExpirationDate(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).get2DigitYearStart());
-                binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
-            }
-        });
     }
 
     @Override
@@ -79,6 +72,33 @@ public class GroceryAddFragment extends Fragment {
         super.onResume();
         String currentName = viewModel.getGroceryToAdd().getGroceryName();
         binding.btnChangeName.setText(currentName);
+    }
+
+    private void navigation() {
+        // Navigate to name picker fragment
+        binding.btnChangeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment);
+            }
+        });
+
+        // Temporary later would navigate to some type of calendar
+        binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel
+                        .getGroceryToAdd()
+                        .setGroceryExpirationDate(
+                                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).get2DigitYearStart());
+                binding.btnChangeExpirationDate
+                        .setText(DateConverter
+                                .dateToString(viewModel.getGroceryToAdd()
+                                                        .getGroceryExpirationDate()));
+            }
+        });
+
+
     }
 
 }

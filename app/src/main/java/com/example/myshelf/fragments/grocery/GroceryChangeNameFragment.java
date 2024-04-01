@@ -31,6 +31,7 @@ public class GroceryChangeNameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(GroceryAddViewModel.class);
+        // Setting name on confirm button click
         binding.btnConfirm.setOnClickListener(v -> {
             String newName = "Toast";
             viewModel.setGroceryName(newName);
