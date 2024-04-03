@@ -28,4 +28,10 @@ public class GroceriesRepository {
         });
     }
 
+    public void deleteGrocery(Grocery grocery) {
+        GroceryDatabase.databaseWriteExecutor.execute(() -> {
+            groceryDAO.delete(grocery);
+        });
+    }
+
 }

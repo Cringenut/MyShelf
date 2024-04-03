@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.myshelf.adapters.grocery.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.repositories.GroceriesRepository;
 
@@ -13,7 +14,7 @@ import lombok.Getter;
 
 // For now no manipulations with Grocery inside
 // Later Grocery removal and editing would be implemented
-public class GroceriesListViewModel extends ViewModel {
+public class GroceriesListViewModel extends ViewModel implements GroceriesRecyclerViewAdapter.OnGroceryDeleteClickListener {
     private final GroceriesRepository groceriesRepo;
     @Getter
     private final LiveData<List<Grocery>> groceries;
@@ -36,4 +37,8 @@ public class GroceriesListViewModel extends ViewModel {
     }
 
 
+    @Override
+    public void onGroceryDeleteClick(Grocery grocery) {
+        groceriesRepo.deleteGrocery(grocery);
+    }
 }

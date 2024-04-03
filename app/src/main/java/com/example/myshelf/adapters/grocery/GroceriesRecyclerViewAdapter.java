@@ -22,9 +22,20 @@ public class GroceriesRecyclerViewAdapter
     private Grocery selectedGrocery;
 
 
-    // Interface for click events
+    // Interfaces for click events
     public interface OnGroceryClickListener {
         void onGroceryClick(Grocery grocery);
+    }
+    public interface OnGroceryDeleteClickListener {
+        void onGroceryDeleteClick(Grocery grocery);
+    }
+
+    private final OnGroceryClickListener listener;
+    private final OnGroceryDeleteClickListener deleteListener;
+    // Constructor updated to include the listener
+    public GroceriesRecyclerViewAdapter(OnGroceryClickListener listener, OnGroceryDeleteClickListener deleteListener) {
+        this.listener = listener;
+        this.deleteListener = deleteListener;
     }
 
 
@@ -34,12 +45,6 @@ public class GroceriesRecyclerViewAdapter
         }
         this.selectedGrocery = grocery;
         notifyItemChanged(groceriesList.indexOf(selectedGrocery));
-    }
-
-    private final OnGroceryClickListener listener;
-    // Constructor updated to include the listener
-    public GroceriesRecyclerViewAdapter(OnGroceryClickListener listener) {
-        this.listener = listener;
     }
 
     @NonNull
@@ -73,6 +78,7 @@ public class GroceriesRecyclerViewAdapter
         }
 
         holder.itemView.setOnClickListener(v -> listener.onGroceryClick(grocery));
+        holder.binding.btnDelete.setOnClickListener(v -> deleteListener.onGroceryDeleteClick(grocery));
     }
 
     @Override

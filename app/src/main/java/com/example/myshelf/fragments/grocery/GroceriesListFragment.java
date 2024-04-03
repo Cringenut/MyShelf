@@ -47,7 +47,7 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
         viewModel = new ViewModelProvider(this, factory).get(GroceriesListViewModel.class);
 
         // Setting up RecyclerView
-        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter(this);
+        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter(this, viewModel);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.groceriesRecyclerView.setAdapter(adapter);
         binding.groceriesRecyclerView.setLayoutManager(layoutManager);
