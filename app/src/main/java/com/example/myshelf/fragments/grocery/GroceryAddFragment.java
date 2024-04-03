@@ -49,12 +49,10 @@ public class GroceryAddFragment extends Fragment {
         binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
 
         // Data observers
-        viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName -> {
-            binding.btnChangeName.setText(newName);
-        });
-        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(), newExpirationDate -> {
-            binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate));
-        });
+        viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName
+                -> binding.btnChangeName.setText(newName));
+        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(), newExpirationDate
+                -> binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate)));
 
         // Return to previous fragment and add Grocery to database
         binding.btnAddGrocery.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +70,8 @@ public class GroceryAddFragment extends Fragment {
         super.onResume();
         String currentName = viewModel.getGroceryToAdd().getGroceryName();
         binding.btnChangeName.setText(currentName);
+        String currentExpirationDate = DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate());
+        binding.btnChangeExpirationDate.setText(currentExpirationDate);
     }
 
     private void navigation() {

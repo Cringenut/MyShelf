@@ -57,8 +57,10 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
 
         viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), grocery -> {
             // Handle the selected grocery, e.g., navigate to a detail view or show a Toast
-            Toast.makeText(getContext(), "Selected: " + grocery.getGroceryName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Selected", Toast.LENGTH_SHORT).show();
         });
+        // Notify adapter to highlight the selected item
+        viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), adapter::setSelectedGrocery);
     }
 
     private void navigation() {

@@ -19,10 +19,21 @@ public class GroceriesRecyclerViewAdapter
         extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
 
     private List<Grocery> groceriesList = new ArrayList<>();
+    private Grocery selectedGrocery;
+
 
     // Interface for click events
     public interface OnGroceryClickListener {
         void onGroceryClick(Grocery grocery);
+    }
+
+
+    public void setSelectedGrocery(Grocery grocery) {
+        if (selectedGrocery != null) {
+            notifyItemChanged(groceriesList.indexOf(selectedGrocery));
+        }
+        this.selectedGrocery = grocery;
+        notifyItemChanged(groceriesList.indexOf(selectedGrocery));
     }
 
     private final OnGroceryClickListener listener;
@@ -35,12 +46,10 @@ public class GroceriesRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
         // Inflate the custom layout
         ViewGroceryBinding binding = ViewGroceryBinding
-                        .inflate(LayoutInflater
-                        .from(parent.getContext()), parent, false);
+                .inflate(LayoutInflater
+                        .from(context), parent, false);
 
         return new ViewHolder(binding);
     }
@@ -55,6 +64,12 @@ public class GroceriesRecyclerViewAdapter
             holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
         } else {
             holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
+        }
+
+        if (grocery.equals(selectedGrocery)) {
+            holder.binding.confirm.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.confirm.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> listener.onGroceryClick(grocery));

@@ -27,7 +27,12 @@ public class GroceriesListViewModel extends ViewModel {
     }
 
     public void selectGrocery(Grocery grocery) {
-        selectedGrocery.setValue(grocery);
+        if (grocery.equals(selectedGrocery.getValue())) {
+            // If the same item is clicked again, deselect it
+            selectedGrocery.setValue(null);
+        } else {
+            selectedGrocery.setValue(grocery);
+        }
     }
 
 
