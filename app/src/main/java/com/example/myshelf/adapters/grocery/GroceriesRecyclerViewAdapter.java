@@ -20,6 +20,17 @@ public class GroceriesRecyclerViewAdapter
 
     private List<Grocery> groceriesList = new ArrayList<>();
 
+    // Interface for click events
+    public interface OnGroceryClickListener {
+        void onGroceryClick(Grocery grocery);
+    }
+
+    private final OnGroceryClickListener listener;
+    // Constructor updated to include the listener
+    public GroceriesRecyclerViewAdapter(OnGroceryClickListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,6 +56,8 @@ public class GroceriesRecyclerViewAdapter
         } else {
             holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
         }
+
+        holder.itemView.setOnClickListener(v -> listener.onGroceryClick(grocery));
     }
 
     @Override

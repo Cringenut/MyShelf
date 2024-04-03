@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myshelf.R;
 import com.example.myshelf.adapters.grocery.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
+import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 
-public class GroceriesListFragment extends Fragment {
+public class GroceriesListFragment extends Fragment implements GroceriesRecyclerViewAdapter.OnGroceryClickListener {
 
     private FragmentGroceriesBinding binding;
     private NavController navController;
@@ -45,13 +47,18 @@ public class GroceriesListFragment extends Fragment {
         viewModel = new ViewModelProvider(this, factory).get(GroceriesListViewModel.class);
 
         // Setting up RecyclerView
-        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter();
+        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.groceriesRecyclerView.setAdapter(adapter);
         binding.groceriesRecyclerView.setLayoutManager(layoutManager);
 
         // Observe groceries and update adapter if something changes
         viewModel.getGroceries().observe(getViewLifecycleOwner(), adapter::setGroceries);
+
+        viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), grocery -> {
+            // Handle the selected grocery, e.g., navigate to a detail view or show a Toast
+            Toast.makeText(getContext(), "Selected: " + grocery.getGroceryName(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void navigation() {
@@ -62,5 +69,10 @@ public class GroceriesListFragment extends Fragment {
                 navController.navigate(R.id.action_groceriesFragment_to_groceryAddFragment);
             }
         });
+    }
+
+    @Override
+    public void onGroceryClick(Grocery grocery) {
+        viewModel.selectGrocery(grocery);
     }
 }
