@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,15 +67,19 @@ public class GroceriesRecyclerViewAdapter
         holder.binding.textGroceryName.setText(grocery.getGroceryName());
         // If no expiration date is set hide the text
         if (grocery.getGroceryExpirationDate() == null) {
-            holder.binding.textGroceryExpirationDate.setVisibility(View.INVISIBLE);
+            holder.binding.textGroceryExpirationDate.setVisibility(View.GONE);
         } else {
             holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
+            TextView text = holder.binding.textGroceryName;
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) text.getLayoutParams();
+            params.bottomMargin = 48;
+            text.setLayoutParams(params);
         }
 
         if (grocery.equals(selectedGrocery)) {
-            holder.binding.confirm.setVisibility(View.VISIBLE);
+            holder.binding.layoutDetails.setVisibility(View.VISIBLE);
         } else {
-            holder.binding.confirm.setVisibility(View.GONE);
+            holder.binding.layoutDetails.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> listener.onGroceryClick(grocery));
