@@ -18,8 +18,7 @@ import com.example.myshelf.databinding.FragmentGroceryAddBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.time.LocalDate;
 
 public class GroceryAddFragment extends Fragment {
 
@@ -49,10 +48,10 @@ public class GroceryAddFragment extends Fragment {
         binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
 
         // Data observers
-        viewModel.getGroceryName().observe(getViewLifecycleOwner(), newName
-                -> binding.btnChangeName.setText(newName));
-        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(), newExpirationDate
-                -> binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate)));
+        viewModel.getGroceryName().observe(getViewLifecycleOwner(),
+                newName -> binding.btnChangeName.setText(newName));
+        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(),
+                newExpirationDate -> binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate)));
 
         // Return to previous fragment and add Grocery to database
         binding.btnAddGrocery.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +88,7 @@ public class GroceryAddFragment extends Fragment {
             public void onClick(View v) {
                 viewModel
                         .getGroceryToAdd()
-                        .setGroceryExpirationDate(
-                                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).get2DigitYearStart());
+                        .setGroceryExpirationDate(LocalDate.now());
                 binding.btnChangeExpirationDate
                         .setText(DateConverter
                                 .dateToString(viewModel.getGroceryToAdd()

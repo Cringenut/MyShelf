@@ -2,28 +2,21 @@ package com.example.myshelf.databases.grocery;
 
 import androidx.room.TypeConverter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 // Converting from Date format to String and vice versa
 public class DateConverter {
 
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @TypeConverter
-    public static Date fromString(String value) {
-        try {
-            return value == null ? null : formatter.parse(value);
-        } catch (ParseException e) {
-            return null;
-        }
+    public static LocalDate fromString(String value) {
+        return value == null ? null : LocalDate.parse(value, formatter);
     }
 
     @TypeConverter
-    public static String dateToString(Date date) {
-        return date == null ? null : formatter.format(date);
+    public static String dateToString(LocalDate date) {
+        return date == null ? null : date.format(formatter);
     }
-
 }

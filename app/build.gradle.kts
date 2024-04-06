@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.myshelf"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -55,4 +55,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.espresso.contrib)
     androidTestImplementation(libs.junit.ktx)
+
 }

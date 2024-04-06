@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class Grocery {
 
     public Grocery(@NonNull String groceryName) {
         this.groceryName = groceryName;
+        this.groceryAdditionDate = LocalDate.now();
     }
 
     // Id
@@ -31,10 +33,15 @@ public class Grocery {
     @NonNull
     @ColumnInfo(name="grocery_name")
     private String groceryName;
-    // Expiration date
 
+    // Expiration date
     @ColumnInfo(name="grocery_expiration_date")
-    private Date groceryExpirationDate;
+    private LocalDate groceryExpirationDate;
+
+    // Date when grocery was added to "fridge"
+    @NonNull
+    @ColumnInfo(name="grocery_addition_date")
+    private LocalDate groceryAdditionDate;
 
 
 }

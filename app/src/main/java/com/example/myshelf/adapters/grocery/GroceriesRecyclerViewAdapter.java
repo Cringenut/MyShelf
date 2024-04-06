@@ -72,7 +72,7 @@ public class GroceriesRecyclerViewAdapter
             holder.binding.textGroceryExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
             TextView text = holder.binding.textGroceryName;
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) text.getLayoutParams();
-            params.bottomMargin = 48;
+            params.bottomMargin = 56;
             text.setLayoutParams(params);
         }
 
