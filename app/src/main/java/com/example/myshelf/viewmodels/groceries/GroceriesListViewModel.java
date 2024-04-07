@@ -36,7 +36,6 @@ public class GroceriesListViewModel extends ViewModel implements GroceriesRecycl
         }
     }
 
-
     @Override
     public void onGroceryDeleteClick(Grocery grocery) {
         groceriesRepo.deleteGrocery(grocery);

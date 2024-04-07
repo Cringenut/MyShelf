@@ -56,4 +56,6 @@ dependencies {
     androidTestImplementation(libs.espresso.contrib)
     androidTestImplementation(libs.junit.ktx)
 
+    implementation(libs.gson)
+
 }

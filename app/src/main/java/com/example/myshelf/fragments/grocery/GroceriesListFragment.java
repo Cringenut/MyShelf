@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,11 +53,6 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
 
         // Observe groceries and update adapter if something changes
         viewModel.getGroceries().observe(getViewLifecycleOwner(), adapter::setGroceries);
-
-        viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), grocery -> {
-            // Handle the selected grocery, e.g., navigate to a detail view or show a Toast
-            Toast.makeText(getContext(), "Selected", Toast.LENGTH_SHORT).show();
-        });
         // Notify adapter to highlight the selected item
         viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), adapter::setSelectedGrocery);
     }
@@ -76,5 +70,14 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
     @Override
     public void onGroceryClick(Grocery grocery) {
         viewModel.selectGrocery(grocery);
+    }
+
+    @Override
+    public void onResume() {
+        // Clear GroceryAddViewModel
+        requireActivity()
+                .getViewModelStore()
+                .clear();
+        super.onResume();
     }
 }

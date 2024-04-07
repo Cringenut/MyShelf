@@ -16,9 +16,9 @@ public class GroceryAddViewModel extends ViewModel {
     @Getter
     private final Grocery groceryToAdd;
     @Getter
-    private MutableLiveData<String> groceryName = new MutableLiveData<>();
+    private final MutableLiveData<String> groceryName = new MutableLiveData<>();
     @Getter
-    private MutableLiveData<LocalDate> groceryExpirationDate = new MutableLiveData<>();
+    private final MutableLiveData<LocalDate> groceryExpirationDate = new MutableLiveData<>();
 
     // Setting default values
     public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {
@@ -37,5 +37,10 @@ public class GroceryAddViewModel extends ViewModel {
 
     public void addGrocery() {
         groceriesRepo.addGrocery(groceryToAdd);
+    }
+
+    public void resetData() {
+        this.groceryName.setValue(groceryToAdd.getGroceryName());
+        this.groceryExpirationDate.setValue(groceryToAdd.getGroceryExpirationDate());
     }
 }
