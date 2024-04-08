@@ -24,10 +24,18 @@
         <action
             android:id="@+id/action_groceryAddFragment_to_groceryChangeNameFragment"
             app:destination="@id/groceryChangeNameFragment" />
+        <action
+            android:id="@+id/action_groceryAddFragment_to_groceryCalendarFragment"
+            app:destination="@id/groceryCalendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/groceryChangeNameFragment"
         android:name="com.example.myshelf.fragments.grocery.GroceryChangeNameFragment"
         android:label="fragment_grocery_change_name"
         tools:layout="@layout/fragment_grocery_change_name" />
+    <fragment
+        android:id="@+id/groceryCalendarFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceryCalendarFragment"
+        android:label="fragment_grocery_calendar"
+        tools:layout="@layout/fragment_grocery_calendar" />
 </navigation>

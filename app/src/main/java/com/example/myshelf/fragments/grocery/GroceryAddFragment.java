@@ -18,8 +18,6 @@ import com.example.myshelf.databinding.FragmentGroceryAddBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 
-import java.time.LocalDate;
-
 public class GroceryAddFragment extends Fragment {
 
     private FragmentGroceryAddBinding binding;
@@ -86,13 +84,7 @@ public class GroceryAddFragment extends Fragment {
         binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel
-                        .getGroceryToAdd()
-                        .setGroceryExpirationDate(LocalDate.now());
-                binding.btnChangeExpirationDate
-                        .setText(DateConverter
-                                .dateToString(viewModel.getGroceryToAdd()
-                                                        .getGroceryExpirationDate()));
+                navController.navigate(R.id.action_groceryAddFragment_to_groceryCalendarFragment);
             }
         });
 
