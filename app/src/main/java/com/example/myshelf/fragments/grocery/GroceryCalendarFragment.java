@@ -24,7 +24,7 @@ public class GroceryCalendarFragment extends Fragment implements GroceryCalendar
     private FragmentGroceryCalendarBinding binding;
     private GroceryCalendarViewModel calendarViewModel;
     private GroceryCalendarGridViewAdapter adapter;
-    private GroceryAddViewModel viewModel;
+    private GroceryAddViewModel mainViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceryCalendarBinding.inflate(inflater, container, false);
@@ -35,7 +35,7 @@ public class GroceryCalendarFragment extends Fragment implements GroceryCalendar
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), LocalDate.now());  // Assuming you now pass the required LocalDate here
         calendarViewModel = new ViewModelProvider(this, factory).get(GroceryCalendarViewModel.class);
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
         adapter = new GroceryCalendarGridViewAdapter(this);
 
         // Set the initial date and update days of the month
@@ -49,13 +49,13 @@ public class GroceryCalendarFragment extends Fragment implements GroceryCalendar
             binding.calendarGrid.setAdapter(adapter);  // Set or update adapter here if necessary
         });
 
-        calendarViewModel.getSelectedDate().observe(getViewLifecycleOwner(), selectedDay -> {
+        calendarViewModel.getSelectedDate().observe(getViewLifecycleOwner(), selectedDate -> {
             adapter.setSelectedDate(calendarViewModel.getSelectedDate().getValue());
-            binding.textSelectedDate.setText(DateConverter.dateToString(selectedDay));
+            binding.textSelectedDate.setText(DateConverter.dateToString(selectedDate));
         });
 
         binding.btnConfirm.setOnClickListener(v -> {
-            viewModel.setGroceryExpirationDate(calendarViewModel.getSelectedDate().getValue());
+            mainViewModel.setGroceryExpirationDate(calendarViewModel.getSelectedDate().getValue());
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
 
@@ -63,7 +63,6 @@ public class GroceryCalendarFragment extends Fragment implements GroceryCalendar
         binding.btnSubtract.setOnClickListener(v -> calendarViewModel.subtractMonth());
 
     }
-
 
     @Override
     public void onCalendarClick(LocalDate date) {

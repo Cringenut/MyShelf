@@ -19,7 +19,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/text_date"
+        android:id="@+id/textDate"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:gravity="center"

@@ -15,10 +15,10 @@ import java.util.List;
 public class GroceryCalendarGridViewAdapter extends BaseAdapter {
     private List<LocalDate> daysOfMonth = new ArrayList<>();
     private LocalDate selectedDate;
-    private final OnCalendarClickListener listener; // Member to hold the listener instance
+    private final OnCalendarClickListener calendarClickListener; // Member to hold the calendarClickListener instance
 
     public GroceryCalendarGridViewAdapter(OnCalendarClickListener calendarClickListener) {
-        this.listener = calendarClickListener;
+        this.calendarClickListener = calendarClickListener;
     }
 
     public void setSelectedDate(LocalDate date) {
@@ -79,7 +79,7 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
 
 
         holder.binding.getRoot().setOnClickListener(
-                v -> listener.onCalendarClick(holder.date));
+                v -> calendarClickListener.onCalendarClick(holder.date));
 
         return convertView;
     }
