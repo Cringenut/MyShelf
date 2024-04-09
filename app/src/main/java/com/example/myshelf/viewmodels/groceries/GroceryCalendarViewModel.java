@@ -1,26 +1,41 @@
 package com.example.myshelf.viewmodels.groceries;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Setter;
+import lombok.Getter;
 
 public class GroceryCalendarViewModel extends ViewModel {
 
-    @Setter
-    private Month currentMonth;
-    @Setter
-    private int currentYear;
+    @Getter
+    private final MutableLiveData<List<LocalDate>> daysOfMonth = new MutableLiveData<>();
+    private MutableLiveData<LocalDate> initialDate = new MutableLiveData<>();
 
-    public List<LocalDate> getDaysOfMonth() {
+    public GroceryCalendarViewModel(LocalDate initialDate) {
+        this.initialDate.setValue(initialDate);
+    }
+
+    public void setInitialDate(LocalDate initialDate) {
+        this.initialDate.postValue(initialDate);
+    }
+
+    public void addMonth() {
+        initialDate.getValue().plusMonths(1);
+    }
+
+    public void subtractMonth() {
+        initialDate.getValue().plusMonths(-1);
+    }
+
+    public void setDaysOfMonth() {
         List<LocalDate> daysOfMonth = new ArrayList<>();
 
         // Create a LocalDate object for the first day of the given month and year
-        LocalDate start = LocalDate.of(currentYear, currentMonth.getValue(), 1);
+        LocalDate start = LocalDate.of(1, 1, 1);
 
         // Get the last day of the month
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
@@ -30,7 +45,7 @@ public class GroceryCalendarViewModel extends ViewModel {
             daysOfMonth.add(date);
         }
 
-        return daysOfMonth;
+        this.daysOfMonth.setValue(daysOfMonth);
     }
 
 }

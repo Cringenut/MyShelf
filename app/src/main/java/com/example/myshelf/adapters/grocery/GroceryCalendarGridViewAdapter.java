@@ -10,13 +10,15 @@ import android.widget.TextView;
 import com.example.myshelf.R;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroceryCalendarGridViewAdapter extends BaseAdapter {
-    private List<LocalDate> daysOfMonth;
+    private List<LocalDate> daysOfMonth = new ArrayList<>();
 
-    public GroceryCalendarGridViewAdapter(List<LocalDate> dates) {
-        this.daysOfMonth = dates;
+    public void setDaysOfMonth(List<LocalDate> daysOfMonth) {
+        this.daysOfMonth = daysOfMonth;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -39,6 +41,9 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
         Context context = parent.getContext();
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.view_calendar_cell, parent, false);
+        }
+        if (daysOfMonth.isEmpty()) {
+            return convertView;
         }
 
         int firstIndex = daysOfMonth.get(0).getDayOfWeek().getValue() - 1;

@@ -12,14 +12,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myshelf.adapters.grocery.GroceryCalendarGridViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceryCalendarBinding;
+import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
+import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceryCalendarViewModel;
 
 import java.time.LocalDate;
 
 public class GroceryCalendarFragment extends Fragment {
 
-    FragmentGroceryCalendarBinding binding;
-    GroceryCalendarViewModel calendarViewModel;
+    private FragmentGroceryCalendarBinding binding;
+    private GroceryCalendarViewModel calendarViewModel;
+    private GroceryAddViewModel viewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceryCalendarBinding.inflate(inflater, container, false);
@@ -28,15 +31,19 @@ public class GroceryCalendarFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), LocalDate.now());  // Assuming you now pass the required LocalDate here
+        calendarViewModel = new ViewModelProvider(this, factory).get(GroceryCalendarViewModel.class);
+        GroceryCalendarGridViewAdapter adapter = new GroceryCalendarGridViewAdapter();
 
-        calendarViewModel = new ViewModelProvider(this)
-                .get(GroceryCalendarViewModel.class);
-        calendarViewModel.setCurrentMonth(LocalDate.now().getMonth().plus(2));
-        calendarViewModel.setCurrentYear(LocalDate.now().getYear());
-        binding.calendarGrid
-                .setAdapter(new GroceryCalendarGridViewAdapter(calendarViewModel
-                        .getDaysOfMonth()));
+        // Set the initial date and update days of the month
+        LocalDate initialDate = LocalDate.now();  // This should be dynamically determined as needed
+        calendarViewModel.setInitialDate(initialDate);  // Assuming such a setter exists to handle changes
+        calendarViewModel.setDaysOfMonth();  // Trigger the update of days
+
+        // Observe changes in days of month
+        calendarViewModel.getDaysOfMonth().observe(getViewLifecycleOwner(), newDays -> {
+            adapter.setDaysOfMonth(newDays);
+            binding.calendarGrid.setAdapter(adapter);  // Set or update adapter here if necessary
+        });
     }
-
-
 }
