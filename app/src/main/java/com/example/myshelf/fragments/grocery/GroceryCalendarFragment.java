@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myshelf.adapters.grocery.GroceryCalendarGridViewAdapter;
+import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.FragmentGroceryCalendarBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
@@ -18,10 +19,11 @@ import com.example.myshelf.viewmodels.groceries.GroceryCalendarViewModel;
 
 import java.time.LocalDate;
 
-public class GroceryCalendarFragment extends Fragment {
+public class GroceryCalendarFragment extends Fragment implements GroceryCalendarGridViewAdapter.OnCalendarClickListener {
 
     private FragmentGroceryCalendarBinding binding;
     private GroceryCalendarViewModel calendarViewModel;
+    private GroceryCalendarGridViewAdapter adapter;
     private GroceryAddViewModel viewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +35,8 @@ public class GroceryCalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), LocalDate.now());  // Assuming you now pass the required LocalDate here
         calendarViewModel = new ViewModelProvider(this, factory).get(GroceryCalendarViewModel.class);
-        GroceryCalendarGridViewAdapter adapter = new GroceryCalendarGridViewAdapter();
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
+        adapter = new GroceryCalendarGridViewAdapter(this);
 
         // Set the initial date and update days of the month
         LocalDate initialDate = LocalDate.now();  // This should be dynamically determined as needed
@@ -45,5 +48,25 @@ public class GroceryCalendarFragment extends Fragment {
             adapter.setDaysOfMonth(newDays);
             binding.calendarGrid.setAdapter(adapter);  // Set or update adapter here if necessary
         });
+
+        calendarViewModel.getSelectedDate().observe(getViewLifecycleOwner(), selectedDay -> {
+            adapter.setSelectedDate(calendarViewModel.getSelectedDate().getValue());
+            binding.textSelectedDate.setText(DateConverter.dateToString(selectedDay));
+        });
+
+        binding.btnConfirm.setOnClickListener(v -> {
+            viewModel.setGroceryExpirationDate(calendarViewModel.getSelectedDate().getValue());
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
+
+        binding.btnAdd.setOnClickListener(v -> calendarViewModel.addMonth());
+        binding.btnSubtract.setOnClickListener(v -> calendarViewModel.subtractMonth());
+
+    }
+
+
+    @Override
+    public void onCalendarClick(LocalDate date) {
+        calendarViewModel.setSelectedDate(date);
     }
 }

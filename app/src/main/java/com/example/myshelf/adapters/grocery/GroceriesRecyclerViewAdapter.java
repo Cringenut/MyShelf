@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroceriesRecyclerViewAdapter
-        extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<GroceriesRecyclerViewAdapter.GroceryViewHolder> {
 
     // Interfaces for click events
     public interface OnGroceryClickListener {
@@ -48,19 +48,19 @@ public class GroceriesRecyclerViewAdapter
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroceryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         // Inflate the custom layout
         ViewGroceryBinding binding = ViewGroceryBinding
                 .inflate(LayoutInflater
                         .from(context), parent, false);
 
-        return new ViewHolder(binding);
+        return new GroceryViewHolder(binding);
     }
 
     // Creating RecyclerView element
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GroceryViewHolder holder, int position) {
         Grocery grocery = groceriesList.get(position);
         holder.binding.textGroceryName.setText(grocery.getGroceryName());
 
@@ -83,11 +83,11 @@ public class GroceriesRecyclerViewAdapter
         notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class GroceryViewHolder extends RecyclerView.ViewHolder {
         // Set binding
         ViewGroceryBinding binding;
 
-        public ViewHolder(ViewGroceryBinding binding) {
+        public GroceryViewHolder(ViewGroceryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

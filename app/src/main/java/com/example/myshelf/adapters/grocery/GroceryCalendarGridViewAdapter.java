@@ -5,9 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import com.example.myshelf.R;
+import com.example.myshelf.databinding.ViewCalendarCellBinding;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +14,24 @@ import java.util.List;
 
 public class GroceryCalendarGridViewAdapter extends BaseAdapter {
     private List<LocalDate> daysOfMonth = new ArrayList<>();
+    private LocalDate selectedDate;
+    private final OnCalendarClickListener listener; // Member to hold the listener instance
+
+    public GroceryCalendarGridViewAdapter(OnCalendarClickListener calendarClickListener) {
+        this.listener = calendarClickListener;
+    }
+
+    public void setSelectedDate(LocalDate date) {
+        selectedDate = date;
+        notifyDataSetChanged();
+    }
+
+
+    // Interfaces for click events
+    public interface OnCalendarClickListener {
+        void onCalendarClick(LocalDate date);
+    }
+
 
     public void setDaysOfMonth(List<LocalDate> daysOfMonth) {
         this.daysOfMonth = daysOfMonth;
@@ -39,21 +56,50 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Context context = parent.getContext();
+        CalendarViewHolder holder;
+        ViewCalendarCellBinding binding;
+
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.view_calendar_cell, parent, false);
-        }
-        if (daysOfMonth.isEmpty()) {
-            return convertView;
+            binding = ViewCalendarCellBinding.inflate(LayoutInflater.from(context), parent, false);
+            convertView = binding.getRoot();
+            holder = new CalendarViewHolder(binding);
+            convertView.setTag(holder);
+        } else {
+            holder = (CalendarViewHolder) convertView.getTag();
         }
 
         int firstIndex = daysOfMonth.get(0).getDayOfWeek().getValue() - 1;
         if (position >=  firstIndex && position < firstIndex + daysOfMonth.size()) {
-            TextView textView = convertView.findViewById(R.id.text_date);
-            textView.setText(String.valueOf(daysOfMonth
-                    .get(position - firstIndex)
-                    .getDayOfMonth()));
+            LocalDate date = daysOfMonth.get(position - firstIndex);
+
+            boolean isSelected = date.equals(selectedDate);
+            System.out.println(isSelected);
+            holder.bind(date, isSelected);
         }
 
+
+        holder.binding.getRoot().setOnClickListener(
+                v -> listener.onCalendarClick(holder.date));
+
         return convertView;
+    }
+
+    protected static class CalendarViewHolder {
+        ViewCalendarCellBinding binding;
+        LocalDate date;
+
+        public CalendarViewHolder(ViewCalendarCellBinding binding) {
+            this.binding = binding;
+        }
+
+        public void bind(LocalDate date, boolean isSelected) {
+            this.date = date;
+            binding.textDate.setText(String.valueOf(date.getDayOfMonth()));
+            if (isSelected) {
+                binding.layoutSelected.setVisibility(View.VISIBLE);
+            } else {
+                binding.layoutSelected.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }

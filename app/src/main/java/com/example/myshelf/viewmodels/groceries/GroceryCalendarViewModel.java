@@ -14,28 +14,38 @@ public class GroceryCalendarViewModel extends ViewModel {
     @Getter
     private final MutableLiveData<List<LocalDate>> daysOfMonth = new MutableLiveData<>();
     private MutableLiveData<LocalDate> initialDate = new MutableLiveData<>();
+    @Getter
+    private MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
 
     public GroceryCalendarViewModel(LocalDate initialDate) {
         this.initialDate.setValue(initialDate);
     }
 
     public void setInitialDate(LocalDate initialDate) {
-        this.initialDate.postValue(initialDate);
+        this.initialDate.setValue(initialDate);
     }
 
     public void addMonth() {
-        initialDate.getValue().plusMonths(1);
+        initialDate.setValue(initialDate.getValue().plusMonths(1));
+        setDaysOfMonth();
+    }
+
+    public void setSelectedDate(LocalDate date) {
+        selectedDate.setValue(date);
     }
 
     public void subtractMonth() {
-        initialDate.getValue().plusMonths(-1);
+        initialDate.setValue(initialDate.getValue().plusMonths(-1));
+        setDaysOfMonth();
     }
 
     public void setDaysOfMonth() {
         List<LocalDate> daysOfMonth = new ArrayList<>();
 
         // Create a LocalDate object for the first day of the given month and year
-        LocalDate start = LocalDate.of(1, 1, 1);
+        LocalDate start = LocalDate.of(initialDate.getValue().getYear(),
+                initialDate.getValue().getMonth(),
+                1);
 
         // Get the last day of the month
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());

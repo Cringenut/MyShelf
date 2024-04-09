@@ -34,6 +34,10 @@ public class GroceryAddViewModel extends ViewModel {
         groceryName.setValue(name);
     }
 
+    public void setGroceryExpirationDate(LocalDate date) {
+        groceryToAdd.setGroceryExpirationDate(date);
+        groceryExpirationDate.setValue(date);
+    }
 
     public void addGrocery() {
         groceriesRepo.addGrocery(groceryToAdd);
