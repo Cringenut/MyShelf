@@ -13,9 +13,10 @@ public class GroceryCalendarViewModel extends ViewModel {
 
     @Getter
     private final MutableLiveData<List<LocalDate>> daysOfMonth = new MutableLiveData<>();
-    private MutableLiveData<LocalDate> initialDate = new MutableLiveData<>();
     @Getter
-    private MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
+    private final MutableLiveData<LocalDate> initialDate = new MutableLiveData<>();
+    @Getter
+    private final MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
 
     public GroceryCalendarViewModel(LocalDate initialDate) {
         this.initialDate.setValue(initialDate);

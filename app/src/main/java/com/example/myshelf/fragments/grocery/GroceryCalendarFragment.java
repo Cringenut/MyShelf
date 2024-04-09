@@ -38,25 +38,42 @@ public class GroceryCalendarFragment extends Fragment implements GroceryCalendar
         mainViewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
         adapter = new GroceryCalendarGridViewAdapter(this);
 
-        // Set the initial date and update days of the month
-        LocalDate initialDate = LocalDate.now();  // This should be dynamically determined as needed
-        calendarViewModel.setInitialDate(initialDate);  // Assuming such a setter exists to handle changes
+        if (mainViewModel.getGroceryExpirationDate().getValue() == null) {
+            calendarViewModel.setInitialDate(LocalDate.now());  // Assuming such a setter exists to handle changes
+        } else {
+            calendarViewModel.setInitialDate(mainViewModel.getGroceryExpirationDate().getValue());  // Assuming such a setter exists to handle changes
+            calendarViewModel.setSelectedDate(mainViewModel.getGroceryExpirationDate().getValue());
+        }
         calendarViewModel.setDaysOfMonth();  // Trigger the update of days
+        binding.calendarGrid.setAdapter(adapter);
 
         // Observe changes in days of month
-        calendarViewModel.getDaysOfMonth().observe(getViewLifecycleOwner(), newDays -> {
-            adapter.setDaysOfMonth(newDays);
-            binding.calendarGrid.setAdapter(adapter);  // Set or update adapter here if necessary
+        calendarViewModel.getDaysOfMonth().observe(getViewLifecycleOwner(), daysOfMonth -> {
+            adapter.setDaysOfMonth(daysOfMonth);
+            String currentMonthAndYear = daysOfMonth.get(0).getMonth() + ", " + daysOfMonth.get(0).getYear();
+            binding.textCurrentMonthAndYear.setText(currentMonthAndYear);
         });
 
         calendarViewModel.getSelectedDate().observe(getViewLifecycleOwner(), selectedDate -> {
-            adapter.setSelectedDate(calendarViewModel.getSelectedDate().getValue());
+            adapter.setSelectedDate(selectedDate);
             binding.textSelectedDate.setText(DateConverter.dateToString(selectedDate));
         });
+
+        calendarViewModel.getInitialDate().observe(getViewLifecycleOwner(), initialDate ->
+                adapter.setDaysOfMonth(calendarViewModel.getDaysOfMonth().getValue()));
 
         binding.btnConfirm.setOnClickListener(v -> {
             mainViewModel.setGroceryExpirationDate(calendarViewModel.getSelectedDate().getValue());
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
+
+        binding.btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarViewModel.setSelectedDate(null);
+                calendarViewModel.setInitialDate(LocalDate.now());
+                calendarViewModel.setDaysOfMonth();
+            }
         });
 
         binding.btnAdd.setOnClickListener(v -> calendarViewModel.addMonth());

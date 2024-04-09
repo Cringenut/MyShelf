@@ -71,10 +71,10 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
         int firstIndex = daysOfMonth.get(0).getDayOfWeek().getValue() - 1;
         if (position >=  firstIndex && position < firstIndex + daysOfMonth.size()) {
             LocalDate date = daysOfMonth.get(position - firstIndex);
-
             boolean isSelected = date.equals(selectedDate);
-            System.out.println(isSelected);
             holder.bind(date, isSelected);
+        } else {
+            holder.bind(null, false);
         }
 
 
@@ -93,7 +93,14 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
         }
 
         public void bind(LocalDate date, boolean isSelected) {
+            if (date == null) {
+                binding.textDate.setVisibility(View.INVISIBLE);
+                binding.layoutSelected.setVisibility(View.INVISIBLE);
+                return;
+            }
+
             this.date = date;
+            binding.textDate.setVisibility(View.VISIBLE);
             binding.textDate.setText(String.valueOf(date.getDayOfMonth()));
             if (isSelected) {
                 binding.layoutSelected.setVisibility(View.VISIBLE);
