@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.example.myshelf.R;
 
@@ -12,22 +13,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class GroceryCalendarGridViewAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<LocalDate> dates;
+    private List<LocalDate> daysOfMonth;
 
-    public GroceryCalendarGridViewAdapter(Context context, List<LocalDate> dates) {
-        mContext = context;
-        this.dates = dates;
+    public GroceryCalendarGridViewAdapter(List<LocalDate> dates) {
+        this.daysOfMonth = dates;
     }
 
     @Override
     public int getCount() {
-        return dates.size();
+        return 42;
     }
 
     @Override
     public Object getItem(int position) {
-        return dates.get(position);
+        return daysOfMonth.get(position);
     }
 
     @Override
@@ -37,8 +36,17 @@ public class GroceryCalendarGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Context context = parent.getContext();
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_calendar_cell, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.view_calendar_cell, parent, false);
+        }
+
+        int firstIndex = daysOfMonth.get(0).getDayOfWeek().getValue() - 1;
+        if (position >=  firstIndex && position < firstIndex + daysOfMonth.size()) {
+            TextView textView = convertView.findViewById(R.id.text_date);
+            textView.setText(String.valueOf(daysOfMonth
+                    .get(position - firstIndex)
+                    .getDayOfMonth()));
         }
 
         return convertView;

@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myshelf.adapters.grocery.GroceryCalendarGridViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceryCalendarBinding;
+import com.example.myshelf.viewmodels.groceries.GroceryCalendarViewModel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GroceryCalendarFragment extends Fragment {
 
     FragmentGroceryCalendarBinding binding;
+    GroceryCalendarViewModel calendarViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceryCalendarBinding.inflate(inflater, container, false);
@@ -28,15 +29,13 @@ public class GroceryCalendarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        LocalDate date = LocalDate.now().withDayOfMonth(1);
-
-        List<LocalDate> dates = new ArrayList<>();
-        dates.add(date);
-        dates.add(date);
-        dates.add(date);
-
-
-        binding.calendarGrid.setAdapter(new GroceryCalendarGridViewAdapter(getContext(), dates));
+        calendarViewModel = new ViewModelProvider(this)
+                .get(GroceryCalendarViewModel.class);
+        calendarViewModel.setCurrentMonth(LocalDate.now().getMonth().plus(2));
+        calendarViewModel.setCurrentYear(LocalDate.now().getYear());
+        binding.calendarGrid
+                .setAdapter(new GroceryCalendarGridViewAdapter(calendarViewModel
+                        .getDaysOfMonth()));
     }
 
 
