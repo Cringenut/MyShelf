@@ -114,6 +114,7 @@ public class GroceriesRecyclerViewAdapter
 
             if (isSelected) {
                 binding.layoutDetails.setVisibility(View.VISIBLE);
+                binding.textGroceryAdditionDate.setText(DateConverter.dateToString(grocery.getGroceryAdditionDate()));
             } else {
                 binding.layoutDetails.setVisibility(View.GONE);
             }
