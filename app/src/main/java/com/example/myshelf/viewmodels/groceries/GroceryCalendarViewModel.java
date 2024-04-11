@@ -9,13 +9,11 @@ import java.util.List;
 
 import lombok.Getter;
 
+@Getter
 public class GroceryCalendarViewModel extends ViewModel {
 
-    @Getter
     private final MutableLiveData<List<LocalDate>> daysOfMonth = new MutableLiveData<>();
-    @Getter
     private final MutableLiveData<LocalDate> initialDate = new MutableLiveData<>();
-    @Getter
     private final MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
 
     public GroceryCalendarViewModel(LocalDate initialDate) {

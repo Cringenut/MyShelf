@@ -25,7 +25,10 @@
             android:id="@+id/action_groceryAddFragment_to_groceryChangeNameFragment"
             app:destination="@id/groceryChangeNameFragment" />
         <action
-            android:id="@+id/action_groceryAddFragment_to_groceryCalendarFragment"
+            android:id="@+id/action_groceryAddFragment_to_groceryAdditionCalendarViewModel"
+            app:destination="@id/groceryAdditionCalendarViewModel" />
+        <action
+            android:id="@+id/action_groceryAddFragment_to_groceryExpirationCalendarFragment"
             app:destination="@id/groceryCalendarFragment" />
     </fragment>
     <fragment
@@ -35,7 +38,11 @@
         tools:layout="@layout/fragment_grocery_change_name" />
     <fragment
         android:id="@+id/groceryCalendarFragment"
-        android:name="com.example.myshelf.fragments.grocery.GroceryCalendarFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceryExpirationCalendarFragment"
         android:label="fragment_grocery_calendar"
         tools:layout="@layout/fragment_grocery_calendar" />
+    <fragment
+        android:id="@+id/groceryAdditionCalendarViewModel"
+        android:name="com.example.myshelf.fragments.grocery.GroceryAdditionCalendarFragment"
+        android:label="GroceryAdditionCalendarViewModel" />
 </navigation>

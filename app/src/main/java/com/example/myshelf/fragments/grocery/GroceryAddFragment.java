@@ -84,7 +84,7 @@ public class GroceryAddFragment extends Fragment {
         binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_groceryAddFragment_to_groceryCalendarFragment);
+                navController.navigate(R.id.action_groceryAddFragment_to_groceryExpirationCalendarFragment);
             }
         });
 

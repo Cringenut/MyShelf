@@ -19,7 +19,7 @@ import com.example.myshelf.viewmodels.groceries.GroceryCalendarViewModel;
 
 import java.time.LocalDate;
 
-public class GroceryCalendarFragment extends Fragment implements GroceryCalendarGridViewAdapter.OnCalendarClickListener {
+public class GroceryExpirationCalendarFragment extends Fragment implements GroceryCalendarGridViewAdapter.OnCalendarClickListener {
 
     private FragmentGroceryCalendarBinding binding;
     private GroceryCalendarViewModel calendarViewModel;

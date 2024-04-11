@@ -6,37 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".fragments.grocery.GroceryAddFragment">
 
-    <Button
-        android:id="@+id/btnAddGrocery"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
+        android:layout_height="400dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnChangeName"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/btnAddGrocery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" />
+        <Button
+            android:id="@+id/btnChangeName"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginVertical="20dp"/>
 
-    <Button
-        android:id="@+id/btnChangeExpirationDate"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/btnAddGrocery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeName"
-        app:layout_constraintVertical_bias="0.84" />
+        <Button
+            android:id="@+id/btnChangeExpirationDate"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginVertical="20dp"/>
+
+        <Button
+            android:id="@+id/btnChangeAdditionDate"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginVertical="20dp"/>
+
+
+        <Button
+            android:id="@+id/btnAddGrocery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_marginVertical="10dp"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
