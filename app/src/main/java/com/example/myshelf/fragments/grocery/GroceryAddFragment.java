@@ -44,6 +44,8 @@ public class GroceryAddFragment extends Fragment {
         // Setting the text for buttons
         binding.btnChangeName.setText(viewModel.getGroceryToAdd().getGroceryName());
         binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryExpirationDate()));
+        binding.btnChangeAdditionDate.setText(DateConverter.dateToString(viewModel.getGroceryToAdd().getGroceryAdditionDate()));
+
 
         // Data observers
         viewModel.getGroceryName().observe(getViewLifecycleOwner(),
@@ -80,11 +82,18 @@ public class GroceryAddFragment extends Fragment {
             }
         });
 
-        // Temporary later would navigate to some type of calendar
+        //
         binding.btnChangeExpirationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_groceryAddFragment_to_groceryExpirationCalendarFragment);
+            }
+        });
+
+        binding.btnChangeAdditionDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_groceryAddFragment_to_groceryAdditionCalendarViewModel);
             }
         });
 
