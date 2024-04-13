@@ -11,10 +11,8 @@ import com.example.myshelf.repositories.GroceriesRepository;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor(force = true)
 public class GroceriesListViewModel extends ViewModel implements GroceriesRecyclerViewAdapter.OnGroceryDeleteClickListener {
     private final GroceriesRepository groceriesRepo;
     @Getter
@@ -26,6 +24,12 @@ public class GroceriesListViewModel extends ViewModel implements GroceriesRecycl
     public GroceriesListViewModel(GroceriesRepository groceriesRepo) {
         this.groceriesRepo = groceriesRepo;
         this.groceries = groceriesRepo.getGroceries();
+    }
+
+    public GroceriesListViewModel(GroceriesRepository groceriesRepo, Grocery selectedGrocery) {
+        this.groceriesRepo = groceriesRepo;
+        this.groceries = groceriesRepo.getGroceries();
+        this.selectedGrocery.setValue(selectedGrocery);
     }
 
     public void selectGrocery(Grocery grocery) {

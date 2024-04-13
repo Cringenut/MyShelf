@@ -13,18 +13,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myshelf.R;
+import com.example.myshelf.activities.GroceriesActivity;
 import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.FragmentGroceryManipulationBinding;
-import com.example.myshelf.objects.Grocery;
-import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryManipulationViewModel;
+import com.example.myshelf.viewmodels.groceries.GrocerySelectViewModel;
+import com.example.myshelf.viewscopes.GroceryEditViewModelScope;
 
 public class GroceryEditFragment extends Fragment {
 
     private FragmentGroceryManipulationBinding binding;
     private NavController navController;
     private GroceryManipulationViewModel viewModel;
+    private GrocerySelectViewModel grocerySelectViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,40 +41,33 @@ public class GroceryEditFragment extends Fragment {
         navController = NavHostFragment.findNavController(GroceryEditFragment.this);
         navigation();
 
-        Grocery selectedGrocery = new ViewModelProvider(requireActivity())
-                .get(GroceriesListViewModel.class)
-                .getSelectedGrocery()
-                .getValue();
-        // Using factory to pass repository and new Grocery as parameter to ViewModel
-        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), selectedGrocery);
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryManipulationViewModel.class);
+        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
+        viewModel = new ViewModelProvider(requireActivity(), factory)
+                .get(GroceryManipulationViewModel.class);
 
-        // Setting the text for buttons
-        binding.btnChangeName.setText(viewModel.getGrocery().getGroceryName());
-        binding.btnChangeExpirationDate.setText(DateConverter.dateToString(viewModel.getGrocery().getGroceryExpirationDate()));
-        binding.btnChangeAdditionDate.setText(DateConverter.dateToString(viewModel.getGrocery().getGroceryAdditionDate()));
+        GroceryEditViewModelScope scope = ((GroceriesActivity) getActivity())
+                .getGroceryEditViewModelScope();
+        grocerySelectViewModel = new ViewModelProvider(scope).get(GrocerySelectViewModel.class);
+        grocerySelectViewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), grocery -> {
+            // Setting the text for buttons
+            binding.btnChangeName.setText(grocery.getGroceryName());
+            binding.btnChangeExpirationDate.setText(DateConverter.dateToString(grocery.getGroceryExpirationDate()));
+            binding.btnChangeAdditionDate.setText(DateConverter.dateToString(grocery.getGroceryAdditionDate()));
 
 
-        // Data observers
-        viewModel.getGroceryName().observe(getViewLifecycleOwner(),
-                newName -> binding.btnChangeName.setText(newName));
-        viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(),
-                newExpirationDate -> binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate)));
+            viewModel.setGrocery(grocery);
+            // Data observers
+            viewModel.getGroceryName().observe(getViewLifecycleOwner(),
+                    newName -> binding.btnChangeName.setText(newName));
+            viewModel.getGroceryExpirationDate().observe(getViewLifecycleOwner(),
+                    newExpirationDate -> binding.btnChangeExpirationDate.setText(DateConverter.dateToString(newExpirationDate)));
 
-        // Return to previous fragment and add Grocery to database
-        binding.btnConfirm.setOnClickListener(v -> {
-            viewModel.editGrocery();
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            binding.btnConfirm.setOnClickListener(v -> {
+                viewModel.editGrocery();
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            });
         });
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        String currentName = viewModel.getGrocery().getGroceryName();
-        binding.btnChangeName.setText(currentName);
-        String currentExpirationDate = DateConverter.dateToString(viewModel.getGrocery().getGroceryExpirationDate());
-        binding.btnChangeExpirationDate.setText(currentExpirationDate);
     }
 
     private void navigation() {
@@ -81,8 +76,6 @@ public class GroceryEditFragment extends Fragment {
         //
         binding.btnChangeExpirationDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryEditFragment_to_groceryExpirationCalendarFragment));
         binding.btnChangeAdditionDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryEditFragment_to_groceryAdditionCalendarViewModel));
-
-
     }
 
 }

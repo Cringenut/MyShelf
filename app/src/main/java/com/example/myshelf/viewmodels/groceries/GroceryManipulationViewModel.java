@@ -9,12 +9,14 @@ import com.example.myshelf.repositories.GroceriesRepository;
 import java.time.LocalDate;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class GroceryManipulationViewModel extends ViewModel {
 
     private final GroceriesRepository groceriesRepo;
     @Getter
-    private final Grocery grocery;
+    @Setter
+    private Grocery grocery;
     @Getter
     private final MutableLiveData<String> groceryName = new MutableLiveData<>();
     @Getter

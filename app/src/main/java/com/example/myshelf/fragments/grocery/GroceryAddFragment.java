@@ -25,6 +25,11 @@ public class GroceryAddFragment extends Fragment {
     private GroceryManipulationViewModel viewModel;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceryManipulationBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -37,9 +42,11 @@ public class GroceryAddFragment extends Fragment {
         navController = NavHostFragment.findNavController(GroceryAddFragment.this);
         navigation();
 
+
         // Using factory to pass repository and new Grocery as parameter to ViewModel
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryManipulationViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), factory)
+                .get(GroceryManipulationViewModel.class);
 
         // Setting the text for buttons
         binding.btnChangeName.setText(viewModel.getGrocery().getGroceryName());
@@ -75,8 +82,12 @@ public class GroceryAddFragment extends Fragment {
         //
         binding.btnChangeExpirationDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryAddFragment_to_groceryExpirationCalendarFragment));
         binding.btnChangeAdditionDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryAddFragment_to_groceryAdditionCalendarViewModel));
+    }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("Destroyed");
     }
 
 }

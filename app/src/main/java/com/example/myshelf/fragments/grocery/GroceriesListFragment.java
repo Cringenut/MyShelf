@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myshelf.R;
+import com.example.myshelf.activities.GroceriesActivity;
 import com.example.myshelf.adapters.grocery.GroceriesRecyclerViewAdapter;
 import com.example.myshelf.databinding.FragmentGroceriesBinding;
 import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
+import com.example.myshelf.viewmodels.groceries.GrocerySelectViewModel;
+import com.example.myshelf.viewscopes.GroceryEditViewModelScope;
 
 public class GroceriesListFragment extends Fragment implements GroceriesRecyclerViewAdapter.OnGroceryClickListener,
         GroceriesRecyclerViewAdapter.OnGroceryEditClickListener {
@@ -27,6 +30,8 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
     private FragmentGroceriesBinding binding;
     private NavController navController;
     private GroceriesListViewModel viewModel;
+    private GrocerySelectViewModel grocerySelectViewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceriesBinding.inflate(inflater, container, false);
@@ -56,6 +61,11 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
         viewModel.getGroceries().observe(getViewLifecycleOwner(), adapter::setGroceries);
         // Notify adapter to highlight the selected item
         viewModel.getSelectedGrocery().observe(getViewLifecycleOwner(), adapter::setSelectedGrocery);
+
+        GroceryEditViewModelScope scope = ((GroceriesActivity) getActivity())
+                .getGroceryEditViewModelScope();
+        grocerySelectViewModel = new ViewModelProvider(scope).get(GrocerySelectViewModel.class);
+
     }
 
     private void navigation() {
@@ -71,6 +81,7 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
     @Override
     public void onGroceryClick(Grocery grocery) {
         viewModel.selectGrocery(grocery);
+        grocerySelectViewModel.select(grocery);
     }
 
     @Override
