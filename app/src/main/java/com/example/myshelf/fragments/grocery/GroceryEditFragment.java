@@ -1,9 +1,7 @@
 package com.example.myshelf.fragments.grocery;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,30 +13,31 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.myshelf.R;
 import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.FragmentGroceryManipulationBinding;
+import com.example.myshelf.objects.Grocery;
+import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 import com.example.myshelf.viewmodels.groceries.GroceryManipulationViewModel;
 
-public class GroceryAddFragment extends Fragment {
+public class GroceryEditFragment extends Fragment {
 
     private FragmentGroceryManipulationBinding binding;
     private NavController navController;
     private GroceryManipulationViewModel viewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentGroceryManipulationBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Navigation
-        navController = NavHostFragment.findNavController(GroceryAddFragment.this);
+        navController = NavHostFragment.findNavController(GroceryEditFragment.this);
         navigation();
 
+
+        Grocery selectedGrocery = new ViewModelProvider(requireActivity())
+                .get(GroceriesListViewModel.class)
+                .getSelectedGrocery()
+                .getValue();
         // Using factory to pass repository and new Grocery as parameter to ViewModel
-        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext());
+        GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), selectedGrocery);
         viewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryManipulationViewModel.class);
 
         // Setting the text for buttons
@@ -55,7 +54,7 @@ public class GroceryAddFragment extends Fragment {
 
         // Return to previous fragment and add Grocery to database
         binding.btnConfirm.setOnClickListener(v -> {
-            viewModel.addGrocery();
+            viewModel.editGrocery();
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
     }

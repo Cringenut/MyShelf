@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class GroceriesRepositoryViewModelFactory implements ViewModelProvider.Factory {
     private final GroceriesRepository groceriesRepository;
     private LocalDate initialDate;
+    private Grocery groceryToEdit;
 
     // Encapsulating Repository creation
     public GroceriesRepositoryViewModelFactory(Context context) {
@@ -25,14 +26,23 @@ public class GroceriesRepositoryViewModelFactory implements ViewModelProvider.Fa
         this.initialDate = initialDate; // Initialize the date
     }
 
+    public GroceriesRepositoryViewModelFactory(Context context, Grocery groceryToEdit) {
+        groceriesRepository = new GroceriesRepository(context);
+        this.groceryToEdit = groceryToEdit;
+    }
+
     // Pass arguments to ViewModel
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(GroceriesListViewModel.class)) {
             return (T) new GroceriesListViewModel(groceriesRepository);
-        } else if (modelClass.isAssignableFrom(GroceryAddViewModel.class)) {
-            return (T) new GroceryAddViewModel(groceriesRepository, new Grocery("Grocery"));
+        } else if (modelClass.isAssignableFrom(GroceryManipulationViewModel.class)) {
+            if (groceryToEdit != null) {
+                return (T) new GroceryManipulationViewModel(groceriesRepository, groceryToEdit);
+            } else {
+                return (T) new GroceryManipulationViewModel(groceriesRepository, new Grocery("Grocery"));
+            }
         } else if (modelClass.isAssignableFrom(GroceryCalendarViewModel.class)) {
             return (T) new GroceryCalendarViewModel(initialDate);
         }

@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 
-public class GroceryAddViewModel extends ViewModel {
+public class GroceryManipulationViewModel extends ViewModel {
 
     private final GroceriesRepository groceriesRepo;
     @Getter
-    private final Grocery groceryToAdd;
+    private final Grocery grocery;
     @Getter
     private final MutableLiveData<String> groceryName = new MutableLiveData<>();
     @Getter
@@ -24,36 +24,36 @@ public class GroceryAddViewModel extends ViewModel {
 
 
     // Setting default values
-    public GroceryAddViewModel(GroceriesRepository groceriesRepo, Grocery groceryToAdd) {
+    public GroceryManipulationViewModel(GroceriesRepository groceriesRepo, Grocery grocery) {
         this.groceriesRepo = groceriesRepo;
-        this.groceryToAdd = groceryToAdd;
-        this.groceryName.setValue(groceryToAdd.getGroceryName());
-        this.groceryExpirationDate.setValue(groceryToAdd.getGroceryExpirationDate());
-        this.groceryAdditionDate.setValue(LocalDate.now());
+        this.grocery = grocery;
+        this.groceryName.setValue(grocery.getGroceryName());
+        this.groceryExpirationDate.setValue(grocery.getGroceryExpirationDate());
+        this.groceryAdditionDate.setValue(grocery.getGroceryAdditionDate());
     }
 
     // Setters
     public void setGroceryName(String name) {
-        groceryToAdd.setGroceryName(name);
+        grocery.setGroceryName(name);
         groceryName.setValue(name);
     }
 
     public void setGroceryExpirationDate(LocalDate date) {
-        groceryToAdd.setGroceryExpirationDate(date);
+        grocery.setGroceryExpirationDate(date);
         groceryExpirationDate.setValue(date);
     }
 
     public void setGroceryAdditionDate(LocalDate date) {
-        groceryToAdd.setGroceryAdditionDate(date);
+        grocery.setGroceryAdditionDate(date);
         groceryAdditionDate.setValue(date);
     }
 
     public void addGrocery() {
-        groceriesRepo.addGrocery(groceryToAdd);
+        groceriesRepo.addGrocery(grocery);
     }
 
-    public void resetData() {
-        this.groceryName.setValue(groceryToAdd.getGroceryName());
-        this.groceryExpirationDate.setValue(groceryToAdd.getGroceryExpirationDate());
+    public void editGrocery() {
+        groceriesRepo.editGrocery(grocery);
     }
+
 }

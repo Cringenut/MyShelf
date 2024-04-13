@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myshelf.databinding.FragmentGroceryChangeNameBinding;
-import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
+import com.example.myshelf.viewmodels.groceries.GroceryManipulationViewModel;
 
 
 public class GroceryChangeNameFragment extends Fragment {
 
     private FragmentGroceryChangeNameBinding binding;
-    private GroceryAddViewModel viewModel;
+    private GroceryManipulationViewModel viewModel;
     private EditText textInputGroceryName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +30,7 @@ public class GroceryChangeNameFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(GroceryAddViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(GroceryManipulationViewModel.class);
         // Setting name on confirm button click
         binding.btnConfirm.setOnClickListener(v -> {
             String newName = "Toast";

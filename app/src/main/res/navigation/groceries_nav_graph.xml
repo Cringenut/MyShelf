@@ -12,12 +12,15 @@
         <action
             android:id="@+id/action_groceriesFragment_to_groceryAddFragment"
             app:destination="@id/groceryAddFragment" />
+        <action
+            android:id="@+id/action_groceriesFragment_to_groceryEditFragment"
+            app:destination="@id/groceryEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/groceryAddFragment"
         android:name="com.example.myshelf.fragments.grocery.GroceryAddFragment"
         android:label="fragment_grocery_add"
-        tools:layout="@layout/fragment_grocery_add" >
+        tools:layout="@layout/fragment_grocery_manipulation" >
         <action
             android:id="@+id/action_groceryAddFragment_back_to_groceriesFragment"
             app:destination="@id/groceriesFragment" />
@@ -45,4 +48,12 @@
         android:id="@+id/groceryAdditionCalendarViewModel"
         android:name="com.example.myshelf.fragments.grocery.GroceryAdditionCalendarFragment"
         android:label="GroceryAdditionCalendarViewModel" />
+    <fragment
+        android:id="@+id/groceryEditFragment"
+        android:name="com.example.myshelf.fragments.grocery.GroceryEditFragment"
+        android:label="GroceryEditFragment" >
+        <action
+            android:id="@+id/action_groceryEditFragment_to_groceriesFragment"
+            app:destination="@id/groceriesFragment" />
+    </fragment>
 </navigation>

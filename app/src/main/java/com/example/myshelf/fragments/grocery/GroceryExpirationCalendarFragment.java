@@ -14,7 +14,7 @@ import com.example.myshelf.adapters.grocery.GroceryCalendarGridViewAdapter;
 import com.example.myshelf.databases.grocery.DateConverter;
 import com.example.myshelf.databinding.FragmentGroceryCalendarBinding;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
-import com.example.myshelf.viewmodels.groceries.GroceryAddViewModel;
+import com.example.myshelf.viewmodels.groceries.GroceryManipulationViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceryCalendarViewModel;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class GroceryExpirationCalendarFragment extends Fragment implements Groce
     private FragmentGroceryCalendarBinding binding;
     private GroceryCalendarViewModel calendarViewModel;
     private GroceryCalendarGridViewAdapter adapter;
-    private GroceryAddViewModel mainViewModel;
+    private GroceryManipulationViewModel mainViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGroceryCalendarBinding.inflate(inflater, container, false);
@@ -35,7 +35,7 @@ public class GroceryExpirationCalendarFragment extends Fragment implements Groce
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         GroceriesRepositoryViewModelFactory factory = new GroceriesRepositoryViewModelFactory(getContext(), LocalDate.now());  // Assuming you now pass the required LocalDate here
         calendarViewModel = new ViewModelProvider(this, factory).get(GroceryCalendarViewModel.class);
-        mainViewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryAddViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity(), factory).get(GroceryManipulationViewModel.class);
         adapter = new GroceryCalendarGridViewAdapter(this);
 
         if (mainViewModel.getGroceryExpirationDate().getValue() == null) {

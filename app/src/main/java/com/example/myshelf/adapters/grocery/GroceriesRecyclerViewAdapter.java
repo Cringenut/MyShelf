@@ -26,15 +26,21 @@ public class GroceriesRecyclerViewAdapter
         void onGroceryDeleteClick(Grocery grocery);
     }
 
+    public interface OnGroceryEditClickListener {
+        void onGroceryEditClick(Grocery grocery);
+    }
+
     private List<Grocery> groceriesList = new ArrayList<>();
     private Grocery selectedGrocery;
     private final OnGroceryClickListener listener;
     private final OnGroceryDeleteClickListener deleteListener;
+    private final OnGroceryEditClickListener editListener;
     // Constructor updated to include the listener
     public GroceriesRecyclerViewAdapter(OnGroceryClickListener listener,
-                                        OnGroceryDeleteClickListener deleteListener) {
+                                        OnGroceryDeleteClickListener deleteListener, OnGroceryEditClickListener editListener) {
         this.listener = listener;
         this.deleteListener = deleteListener;
+        this.editListener = editListener;
     }
 
 
@@ -71,6 +77,9 @@ public class GroceriesRecyclerViewAdapter
                 v -> listener.onGroceryClick(grocery));
         holder.binding.btnDelete.setOnClickListener(
                 v -> deleteListener.onGroceryDeleteClick(grocery));
+        holder.binding.btnEdit.setOnClickListener(
+                v -> editListener.onGroceryEditClick(grocery)
+        );
     }
 
     @Override

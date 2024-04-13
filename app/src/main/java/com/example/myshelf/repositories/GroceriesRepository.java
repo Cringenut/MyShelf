@@ -34,4 +34,10 @@ public class GroceriesRepository {
         });
     }
 
+    public void editGrocery(Grocery grocery) {
+        GroceryDatabase.databaseWriteExecutor.execute(() -> {
+            groceryDAO.update(grocery);
+        });
+    }
+
 }

@@ -21,7 +21,8 @@ import com.example.myshelf.objects.Grocery;
 import com.example.myshelf.viewmodels.groceries.GroceriesListViewModel;
 import com.example.myshelf.viewmodels.groceries.GroceriesRepositoryViewModelFactory;
 
-public class GroceriesListFragment extends Fragment implements GroceriesRecyclerViewAdapter.OnGroceryClickListener {
+public class GroceriesListFragment extends Fragment implements GroceriesRecyclerViewAdapter.OnGroceryClickListener,
+        GroceriesRecyclerViewAdapter.OnGroceryEditClickListener {
 
     private FragmentGroceriesBinding binding;
     private NavController navController;
@@ -46,7 +47,7 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
         viewModel = new ViewModelProvider(this, factory).get(GroceriesListViewModel.class);
 
         // Setting up RecyclerView
-        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter(this, viewModel);
+        GroceriesRecyclerViewAdapter adapter = new GroceriesRecyclerViewAdapter(this, viewModel, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.groceriesRecyclerView.setAdapter(adapter);
         binding.groceriesRecyclerView.setLayoutManager(layoutManager);
@@ -74,10 +75,15 @@ public class GroceriesListFragment extends Fragment implements GroceriesRecycler
 
     @Override
     public void onResume() {
-        // Clear GroceryAddViewModel
+        // Clear GroceryManipulationViewModel
         requireActivity()
                 .getViewModelStore()
                 .clear();
         super.onResume();
+    }
+
+    @Override
+    public void onGroceryEditClick(Grocery grocery) {
+        navController.navigate(R.id.action_groceriesFragment_to_groceryEditFragment);
     }
 }
