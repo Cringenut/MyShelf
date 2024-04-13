@@ -11,9 +11,10 @@ import com.example.myshelf.repositories.GroceriesRepository;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-// For now no manipulations with Grocery inside
-// Later Grocery removal and editing would be implemented
+
+@NoArgsConstructor(force = true)
 public class GroceriesListViewModel extends ViewModel implements GroceriesRecyclerViewAdapter.OnGroceryDeleteClickListener {
     private final GroceriesRepository groceriesRepo;
     @Getter

@@ -1,7 +1,9 @@
 package com.example.myshelf.fragments.grocery;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,12 +27,17 @@ public class GroceryEditFragment extends Fragment {
     private GroceryManipulationViewModel viewModel;
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentGroceryManipulationBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Navigation
         navController = NavHostFragment.findNavController(GroceryEditFragment.this);
         navigation();
-
 
         Grocery selectedGrocery = new ViewModelProvider(requireActivity())
                 .get(GroceriesListViewModel.class)
@@ -70,10 +77,10 @@ public class GroceryEditFragment extends Fragment {
 
     private void navigation() {
         // Navigate to name picker fragment
-        binding.btnChangeName.setOnClickListener(v -> navController.navigate(R.id.action_groceryAddFragment_to_groceryChangeNameFragment));
+        binding.btnChangeName.setOnClickListener(v -> navController.navigate(R.id.action_groceryEditFragment_to_groceryChangeNameFragment));
         //
-        binding.btnChangeExpirationDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryAddFragment_to_groceryExpirationCalendarFragment));
-        binding.btnChangeAdditionDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryAddFragment_to_groceryAdditionCalendarViewModel));
+        binding.btnChangeExpirationDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryEditFragment_to_groceryExpirationCalendarFragment));
+        binding.btnChangeAdditionDate.setOnClickListener(v -> navController.navigate(R.id.action_groceryEditFragment_to_groceryAdditionCalendarViewModel));
 
 
     }

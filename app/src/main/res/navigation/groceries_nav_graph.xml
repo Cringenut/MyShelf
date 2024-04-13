@@ -51,9 +51,18 @@
     <fragment
         android:id="@+id/groceryEditFragment"
         android:name="com.example.myshelf.fragments.grocery.GroceryEditFragment"
-        android:label="GroceryEditFragment" >
+        android:label="GroceryEditFragment">
         <action
             android:id="@+id/action_groceryEditFragment_to_groceriesFragment"
             app:destination="@id/groceriesFragment" />
+        <action
+            android:id="@+id/action_groceryEditFragment_to_groceryChangeNameFragment"
+            app:destination="@id/groceryChangeNameFragment" />
+        <action
+            android:id="@+id/action_groceryEditFragment_to_groceryExpirationCalendarFragment"
+            app:destination="@id/groceryCalendarFragment" />
+        <action
+            android:id="@+id/action_groceryEditFragment_to_groceryAdditionCalendarViewModel"
+            app:destination="@id/groceryAdditionCalendarViewModel" />
     </fragment>
 </navigation>
