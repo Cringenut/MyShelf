@@ -2,27 +2,25 @@ package com.example.myshelf.activities;
 
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myshelf.databinding.ActivityGroceriesBinding;
-import com.example.myshelf.viewscopes.GroceryEditViewModelScope;
-
-import lombok.Getter;
+import com.example.myshelf.R;
 
 public class GroceriesActivity extends AppCompatActivity {
-
-    // For now the only purpose is to get context and act as the main holder, other operations are held in fragments
-    private ActivityGroceriesBinding binding;
-    @Getter
-    private GroceryEditViewModelScope groceryEditViewModelScope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityGroceriesBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        groceryEditViewModelScope = new GroceryEditViewModelScope();
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_groceries);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 }
